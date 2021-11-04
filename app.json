@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "moduloSanitario2",
+    "slug": "moduloSanitario2",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "moduloSanitario2"
+}
