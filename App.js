@@ -4,6 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { FamilyInfoCard } from './Components/FamilyInfoCard';
 import { GoogleSignin, GoogleSigninButton, statusCodes} from '@react-native-google-signin/google-signin';
+import PictureAdder from './Components/pictureAdder';
 
 /* https://reactnavigation.org/docs/native-stack-navigator/ */
 
@@ -70,6 +71,7 @@ function FamilyScreen({ navigation, route }) {
       <Text>Aca van las fotos de la familia {id}</Text>
       <Image source={{uri: 'https://drive.google.com/thumbnail?id=1bDYTk5uvJTE3_bvTQ1TjnzmhZ3Va0Xib'}} alt={"Doesn't work"}
        style={{width: 400, height: 400}} />
+       <PictureAdder familyid = {id}></PictureAdder>
     </View>
   );
 
