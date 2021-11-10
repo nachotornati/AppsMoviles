@@ -186,6 +186,10 @@ dependencies {
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
+
+    implementation 'com.google.maps.android:android-maps-utils:2.3.0'
+
     def isGifEnabled = (findProperty('expo.gif.enabled') ?: "") == "true";
     def isWebpEnabled = (findProperty('expo.webp.enabled') ?: "") == "true";
     def isWebpAnimatedEnabled = (findProperty('expo.webp.animated') ?: "") == "true";
