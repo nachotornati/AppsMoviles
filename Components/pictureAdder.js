@@ -19,15 +19,15 @@ const actionSheetRef = createRef();
 
 
 class PictureAdder extends React.Component {
-    PictureAdder(familyid){
-    let actionSheet;
-    let category = 'bathroom_picture';
-    let id = familyid;
+    constructor(props){
+      super()
     }
 
     render() {
         return (
-            <View>        
+            <View>
+              <Text>{this.props.category}</Text>
+              <Text>{this.props.familyid}</Text>           
             <TouchableOpacity
                 onPress={() => { actionSheetRef.current?.setModalVisible();}}>
                 <Text style={{fontSize:50}}>+</Text>
@@ -77,8 +77,8 @@ class PictureAdder extends React.Component {
     }
 
     uploadPictureToServer(imagePath){
-      let url = 'http://25.83.133.88:3000/families/image/' + id + '/bathroom_picture'
-      console.log(url);
+      let url = 'http://25.83.133.88:3000/families/image/50/bathroom_picture'
+      console.log(this.props.category);
       let body = new FormData();
       body.append('upload', {uri: imagePath,name: 'photo.png',filename :'imageTest45.jpg',type: 'image/jpg'});
 
