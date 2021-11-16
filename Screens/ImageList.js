@@ -29,30 +29,4 @@ export default function FamilyScreen({ navigation, route }) {
          <PictureAdder familyid={id} category='bathroom_picture'></PictureAdder>
       </View>
     );
-
-
-    /*const onPressCategory = (item) => {
-      //agregar Id
-      const title = item.name;
-      const category = item;
-      navigation.navigate("ImageList", { category, title });
-    };
-    
-    //<Text style={styles.categoriesInfo}>{getNumberOfPhotos(item.id)} photos</Text>
-    const renderCategory = ({ item }) => (
-      <TouchableHighlight underlayColor="rgba(73,182,77,0.9)" onPress={() => onPressCategory(item)}>
-        <View style={styles.categoriesItemContainer}>
-          <Image style={styles.categoriesPhoto} source={{ uri: item.photo_url }} />
-          <Text style={styles.categoriesName}>{item.name}</Text>
-          
-        </View>
-      </TouchableHighlight>
-    );
-  
-    return (
-      <View>
-        <FlatList data={categories} renderItem={renderCategory} keyExtractor={(item) => `${item.id}`} />
-      </View>
-    );*/
-  
-  }
+ }

@@ -1,27 +1,36 @@
 import React, { useEffect, useState } from 'react';
-import { Button, View, StyleSheet, StatusBar, Text, FlatList, TouchableHighlight, Image} from 'react-native';
+import { Button, View, StyleSheet, StatusBar, Text, FlatList, TouchableHighlight, Image, Alert} from 'react-native';
 
 import PhotoMap from '../Components/PhotoMap';
 
 export default function MapScreen ({navigation,route}){
 
-    const { id } = route.params;
+    const id  = route.params;
   
     const [ latitude, setLatitude ] = useState(0);
     const [ longitude, setLongitude ] = useState(0);
     
       
-  
-  
+    console.log(route.params)
+    console.log(id)
   
     const obtenerDatos = async () => {
-      const data = await fetch("https://modulo-sanitario-imagenes-db.herokuapp.com/families/61848ce34b6dd700161057cb")
+      const data = await fetch("https://modulo-sanitario-imagenes-db.herokuapp.com/families/"+id+"/coordinate")
       const response = await data.json()
+
+      if (response.error.flag){
+          Alert.alert(response.error.message.spanish)
+          navigation.goBack()
+          
+
+      }
+      else{
+
       setLatitude(response.coordinate.latitude)
       setLongitude(response.coordinate.longitude)
-      //console.log(information)
+      console.log("https://modulo-sanitario-imagenes-db.herokuapp.com/families/"+id+"/coordinate")
       
-      
+      }
     }
   
     useEffect( () => {

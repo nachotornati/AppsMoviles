@@ -76,8 +76,8 @@ class PictureAdder extends React.Component {
       });
     }
 
-    uploadPictureToServer(imagePath){
-      let url = 'http://25.83.133.88:3000/families/image/50/bathroom_picture'
+    uploadPictureToServer(imagePath){ // change url
+      let url = 'https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/50/bathroom_picture'
       console.log(this.props.category);
       let body = new FormData();
       body.append('upload', {uri: imagePath,name: 'photo.png',filename :'imageTest45.jpg',type: 'image/jpg'});
