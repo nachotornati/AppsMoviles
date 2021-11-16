@@ -1,7 +1,6 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View , FlatList, TouchableHighlight} from 'react-native';
 import { FamilyInfoCard } from '../Components/FamilyInfoCard';
+import React, { useEffect, useState } from 'react';
+import { Button, View, StyleSheet, StatusBar, Text, FlatList, TouchableHighlight, Image} from 'react-native';
 
 export default function FamiliesScreen ({navigation}) {
 
@@ -19,9 +18,10 @@ export default function FamiliesScreen ({navigation}) {
   }
 
   return (
+    //<FlatList keyExtractor={(item) => item._id} data={usuarios} renderItem={ ({item}) => <TouchableHighlight onPress={() => navigation.navigate('Family', {id: item._id})}><FamilyInfoCard item={item}/></TouchableHighlight>} />
     <View style={styles.container_style}>
-      <Text style={styles.header}>Familias</Text> 
-      <FlatList keyExtractor={(item) => item._id} data={usuarios} renderItem={ ({item}) => <TouchableHighlight onPress={() => alert(item._id)}><FamilyInfoCard item={item}/></TouchableHighlight>} />
+      
+      <FlatList keyExtractor={(item) => item._id} data={usuarios} renderItem={ ({item}) => <TouchableHighlight onPress={() => navigation.navigate('Family',{id:item._id})}><FamilyInfoCard item={item}/></TouchableHighlight>} />
     </View>
   );
 };
