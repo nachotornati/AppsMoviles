@@ -3,7 +3,7 @@ import { Button, View, StyleSheet, StatusBar, Text, FlatList, TouchableHighlight
 import PictureAdder from '../Components/pictureAdder';
 //Hay que hacer un fetch para traer categoria de fotos y otro para traer datos de la familia
 
-export default function FamilyScreen({ navigation, route }) {
+export default function ImageScreen({ navigation, route }) {
     const [ information, setInformation ] = useState();
     const { id } = route.params;
   

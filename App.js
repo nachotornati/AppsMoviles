@@ -8,6 +8,7 @@ import GoogleLogIn  from './Screens/GoogleLogIn.js';
 import FamiliesScreen  from './Screens/FamiliesScreen.js';
 import FamilyScreen  from './Screens/FamilyScreen.js';
 import MapScreen  from './Screens/MapScreen.js';
+import ImageScreen from './Screens/ImageScreen.js';
 
 /* https://reactnavigation.org/docs/native-stack-navigator/ */
 
@@ -20,6 +21,7 @@ function MyStack() {
       <Stack.Screen name="Iniciar Sesion" options={{headerShown: false}} component={GoogleLogIn} />
       <Stack.Screen name="Families" component={FamiliesScreen} />
       <Stack.Screen name="Family" component={FamilyScreen} />
+      <Stack.Screen name="Image" component= {ImageScreen} />
       <Stack.Screen name="Map" component={MapScreen} />
     </Stack.Navigator>
   );
