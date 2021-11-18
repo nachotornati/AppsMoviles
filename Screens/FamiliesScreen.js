@@ -2,6 +2,7 @@ import { FamilyInfoCard } from '../Components/FamilyInfoCard';
 import React, { useEffect, useState ,useLayoutEffect} from 'react';
 import { Button, View, StyleSheet, StatusBar, Text, FlatList, TouchableHighlight, Image} from 'react-native';
 import { Dimensions } from 'react-native';
+import Background from '../Components/Background';
 
 
 const { width, height } = Dimensions.get('window');
@@ -41,10 +42,11 @@ export default function FamiliesScreen ({ navigation }) {
 
   return (
     //<FlatList keyExtractor={(item) => item._id} data={usuarios} renderItem={ ({item}) => <TouchableHighlight onPress={() => navigation.navigate('Family', {id: item._id})}><FamilyInfoCard item={item}/></TouchableHighlight>} />
+    
     <View style={styles.container_style}>
-      
       <FlatList  vertical showsVerticalScrollIndicator={false} numColumns={2} keyExtractor={(item) => item._id} data={usuarios} renderItem={renderFamilies } />
     </View>
+    
   );
 };
 
@@ -59,7 +61,9 @@ const styles = StyleSheet.create({
     height: RECIPE_ITEM_HEIGHT + 75,
     borderColor: '#cccccc',
     borderWidth: 0.5,
-    borderRadius: 15
+    borderRadius: 15,
+    backgroundColor:'white'
+    
   }
 
 

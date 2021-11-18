@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Button, View, StyleSheet, StatusBar, Text, FlatList, TouchableHighlight, Image} from 'react-native';
-import PictureAdder from '../Components/pictureAdder';
+import PictureAdder from '../Components/PictureAdder';
 //Hay que hacer un fetch para traer categoria de fotos y otro para traer datos de la familia
 
 export default function ImageScreen({ navigation, route }) {

@@ -1,28 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { Button, View, StyleSheet, StatusBar, Text, FlatList, TouchableHighlight, Image, Alert, SafeAreaView} from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
+import AppButton from '../Components/AppButton';
 import { FamilyInfoCard } from '../Components/FamilyInfoCard';
-import ViewLocationButton from '../Components/ViewLocationButton';
+import PictureAdder from '../Components/PictureAdder';
+
+
 //Hay que hacer un fetch para traer categoria de fotos y otro para traer datos de la familia
 
 export default function FamilyScreen({ navigation, route }) {
     const [ information, setInformation ] = useState({});
     const [ categories, setCategories ] = useState({});
     const  id  = route.params.id;
-    console.log("MOSTRAR ID",id)
+    
     const obtenerDatos = async () => {
       const data = await fetch("http://modulo-backoffice.herokuapp.com/families/x-test-obtain-resumed-family/"+ id)
       //const data2= await fetch()
       const dataCategories = await fetch("https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/categories")
       const response = await data.json()
       const responseCategories = await dataCategories.json()
-      console.log("MOSTRANDO RESPONSE",response)
-      setInformation(response)
       
+      setInformation(response)
       setCategories(responseCategories)
-      console.log(categories)
+      
     }
-    console.log(information)
+    
     useEffect( () => {
       obtenerDatos()
     }, [navigation])
@@ -55,29 +56,59 @@ export default function FamilyScreen({ navigation, route }) {
       <TouchableHighlight underlayColor="rgba(73,182,77,0.9)" onPress={() => onPressCategory()}>
         <View style={styles.categoriesItemContainer}>
           <Image style={styles.categoriesPhoto} source={{ uri: "https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/"+ id + "/"+ item.path}} />
+          <View style={styles.categoryNameContainer}> 
           <Text style={styles.categoriesName}>{item.name.spanish}</Text>
-          
+          <PictureAdder style={styles.categoriesName} familyid={id} category={item.path} > </PictureAdder>
+          </View>
         </View>
       </TouchableHighlight>
     );
   
     return (
     <SafeAreaView style={{flex: 1}}>
-      <FlatList ListHeaderComponent={<ViewLocationButton onPress={()=>{navigation.navigate('Map',id)}}/>} data={categories.categories} renderItem={renderCategory} keyExtractor={(item) => item.name. spanish} />
+
+      <FlatList ListHeaderComponent={
+              
+              <View style={styles.familyInfoContainer}>
+              <Text style={styles.infoRecipeName} >Familia tornati</Text>
+                <View style={{marginBottom:10}}>
+                  <Text style={styles.infoDescriptionRecipe}>Direccion: La deseada</Text>
+                  <Text style={styles.infoDescriptionRecipe} >Barrio: La deseada</Text>
+                  <Text style={styles.infoDescriptionRecipe} >Partido: Ezeiza</Text>
+                  <Text style={styles.infoDescriptionRecipe}>Provincia:Buenos Aires</Text>
+                </View>
+              <AppButton title={'Ver mapa'} onPress={()=>{navigation.navigate('Map',id)}}/>
+      
+            </View>
+      } data={categories.categories} renderItem={renderCategory} keyExtractor={(item) => item.name. spanish} />
     </SafeAreaView>
     );
   
   }
+
+  
 
   const styles = StyleSheet.create({
     categoriesItemContainer: {
       margin: 10,
       justifyContent: 'center',
       alignItems: 'center',
-      height: 215,
+      height:240,
       borderColor: '#cccccc',
       borderWidth: 0.5,
       borderRadius: 20,
+      backgroundColor:'white',
+    
+    },
+    familyInfoContainer:{
+      margin: 10,
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: 240,
+      borderColor: '#cccccc',
+      borderWidth: 0.5,
+      borderRadius: 20,
+      backgroundColor:'white'
     },
     categoriesPhoto: {
       width: '100%',
@@ -92,15 +123,27 @@ export default function FamilyScreen({ navigation, route }) {
       },
       shadowRadius: 5,
       shadowOpacity: 1.0,
-      elevation: 3,
     },
     categoriesName: {
       flex: 1,
       fontSize: 20,
       fontWeight: 'bold',
+      marginTop:7,
+      marginLeft:5,
+      color: '#333333',
+      justifyContent:'space-around'
+      
+    },
+    categoryNameContainer:{
+      flex:1,
+      fontSize: 20,
+      fontWeight: 'bold',
       textAlign: 'center',
       color: '#333333',
-      marginTop: 8
+      marginTop: 8,
+      flexDirection:'row',
+      padding:10
+      
     },
     categoriesInfo: {
       marginTop: 3,
@@ -117,13 +160,30 @@ export default function FamilyScreen({ navigation, route }) {
       
 
     },
+ 
+    infoRecipe: {
+      fontSize: 14,
+      fontWeight: 'bold',
+      marginLeft: 5,
+    },
+    category: {
+      fontSize: 14,
+      fontWeight: 'bold',
+      margin: 10,
+      color: '#2cd18a'
+    },
+    infoDescriptionRecipe: {
+      color: 'black',
+      fontWeight: 'bold',
+      fontSize: 16,
+      marginTop:5,
+      textAlign:'center'
+    },
     infoRecipeName: {
       fontSize: 28,
       margin: 10,
       fontWeight: 'bold',
       color: 'black',
-      textAlign: 'center',
-      
-    },
-    
+      textAlign: 'center'
+    }
   });

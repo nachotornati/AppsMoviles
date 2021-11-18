@@ -13,6 +13,7 @@ import {
   } from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import ActionSheet from "react-native-actions-sheet";
+import AppButton from "./AppButton";
 
 
 const actionSheetRef = createRef();
@@ -25,13 +26,10 @@ class PictureAdder extends React.Component {
 
     render() {
         return (
-            <View>
-              <Text>{this.props.category}</Text>
-              <Text>{this.props.familyid}</Text>           
-            <TouchableOpacity
-                onPress={() => { actionSheetRef.current?.setModalVisible();}}>
-                <Text style={{fontSize:50}}>+</Text>
-              </TouchableOpacity>
+            <View>          
+            <AppButton title={'Agregar'}
+                onPress={() => { actionSheetRef.current?.setModalVisible();}}/>
+              
         
               <ActionSheet ref={actionSheetRef}>
                 <View>
