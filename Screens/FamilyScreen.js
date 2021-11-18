@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, View, StyleSheet, StatusBar, Text, FlatList, TouchableHighlight, Image, Alert} from 'react-native';
+import { Button, View, StyleSheet, StatusBar, Text, FlatList, TouchableHighlight, Image, Alert, SafeAreaView} from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { FamilyInfoCard } from '../Components/FamilyInfoCard';
 import ViewLocationButton from '../Components/ViewLocationButton';
@@ -8,7 +8,7 @@ import ViewLocationButton from '../Components/ViewLocationButton';
 export default function FamilyScreen({ navigation, route }) {
     const [ information, setInformation ] = useState({});
     const [ categories, setCategories ] = useState({});
-    const  id  = route.params;
+    const  id  = route.params.id;
     console.log("MOSTRAR ID",id)
     const obtenerDatos = async () => {
       const data = await fetch("http://modulo-backoffice.herokuapp.com/families/x-test-obtain-resumed-family/"+ id)
@@ -20,6 +20,7 @@ export default function FamilyScreen({ navigation, route }) {
       setInformation(response)
       
       setCategories(responseCategories)
+      console.log(categories)
     }
     console.log(information)
     useEffect( () => {
@@ -61,28 +62,15 @@ export default function FamilyScreen({ navigation, route }) {
     );
   
     return (
-      <ScrollView>
-        <View data={information} keyExtractor={(item) => item._id}>
-        
-        </View>
-        
-        
-        <View style={styles.buttonContainer}>
-          <ViewLocationButton onPress={()=>{navigation.navigate('Map',id)}}/>
-        </View>
-        <View>
-        <FlatList data={categories.categories} renderItem={renderCategory} keyExtractor={(item) => item.name.spanish} />
-        </View>
-        
-      
-      </ScrollView>
+    <SafeAreaView style={{flex: 1}}>
+      <FlatList ListHeaderComponent={<ViewLocationButton onPress={()=>{navigation.navigate('Map',id)}}/>} data={categories.categories} renderItem={renderCategory} keyExtractor={(item) => item.name. spanish} />
+    </SafeAreaView>
     );
   
   }
 
   const styles = StyleSheet.create({
     categoriesItemContainer: {
-      flex: 1,
       margin: 10,
       justifyContent: 'center',
       alignItems: 'center',
@@ -104,7 +92,7 @@ export default function FamilyScreen({ navigation, route }) {
       },
       shadowRadius: 5,
       shadowOpacity: 1.0,
-      elevation: 3
+      elevation: 3,
     },
     categoriesName: {
       flex: 1,

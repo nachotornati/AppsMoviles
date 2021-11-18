@@ -78,9 +78,8 @@ class PictureAdder extends React.Component {
 
     uploadPictureToServer(imagePath){ // change url
       let url = 'https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/50/bathroom_picture'
-      console.log(this.props.category);
       let body = new FormData();
-      body.append('upload', {uri: imagePath,name: 'photo.png',filename :'imageTest45.jpg',type: 'image/jpg'});
+      body.append('upload', {uri: imagePath,name: 'photo.jpg',filename :'imageTest45.jpg',type: 'image/jpg'});
 
       fetch(url,{ method: 'POST',headers:{  
         "Content-Type": "multipart/form-data",
