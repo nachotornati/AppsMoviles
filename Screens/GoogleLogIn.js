@@ -5,6 +5,7 @@ import Header from '../Components/Header'
 import Paragraph from '../Components/Paragraph'
 
 import { GoogleSignin, GoogleSigninButton, statusCodes} from '@react-native-google-signin/google-signin';
+import { AsyncStorage } from 'react-native';
 
 
 export default function GoogleLogIn ({navigation}){
@@ -15,6 +16,7 @@ export default function GoogleLogIn ({navigation}){
       androidClientId: ''
     });
   }
+
 
   /*
     El backend principal

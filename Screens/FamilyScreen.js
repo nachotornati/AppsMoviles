@@ -42,18 +42,17 @@ export default function FamilyScreen({ navigation, route }) {
     );*/
 
 
-    const onPressCategory = () => {
-      //agregar Id
-      //const category = item.name;
-      navigation.navigate("Image", { navigation, route });
-      //Alert.alert("Hola")
+    const onPressCategory = (id,category) => {
+      console.log("id antes ", id);
+      console.log("path antes ", category);
+      navigation.navigate("Image", {id,category});
 
     };
     
     //<Text style={styles.categoriesInfo}>{getNumberOfPhotos(item.id)} photos</Text>
     const renderCategory = ({ item }) => (
       
-      <TouchableHighlight underlayColor="rgba(73,182,77,0.9)" onPress={() => onPressCategory()}>
+      <TouchableHighlight underlayColor="rgba(73,182,77,0.9)" onPress={() => onPressCategory(id,item.path)}>
         <View style={styles.categoriesItemContainer}>
           <Image style={styles.categoriesPhoto} source={{ uri: "https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/"+ id + "/"+ item.path}} />
           <View style={styles.categoryNameContainer}> 

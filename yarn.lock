@@ -4776,6 +4776,14 @@
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-17.0.2.tgz"
   "version" "17.0.2"
 
+"react-mixin@^3.0.5":
+  "integrity" "sha512-z9fZ0aCRDjlgxLdMeWkJ9TwhmVLhQ09r8RFpin/cEPA2T6jsb7YHNWcIe0Oii+hhJNyMymdy91CSya5mRkuCkg=="
+  "resolved" "https://registry.npmjs.org/react-mixin/-/react-mixin-3.1.1.tgz"
+  "version" "3.1.1"
+  dependencies:
+    "object-assign" "^4.0.1"
+    "smart-mixin" "^2.0.0"
+
 "react-native-actions-sheet@^0.5.6":
   "integrity" "sha512-MPorPwn4jjwDgEskA/yeAC4Pq15M8uDaeyvcvK7Xg4K9Nmct4lLjIQMFfKFuR1flym349uafAFF6fqVCXYLETg=="
   "resolved" "https://registry.npmjs.org/react-native-actions-sheet/-/react-native-actions-sheet-0.5.6.tgz"
@@ -4800,6 +4808,15 @@
     "hoist-non-react-statics" "^3.3.0"
     "invariant" "^2.2.4"
     "prop-types" "^15.7.2"
+
+"react-native-image-gallery@^2.1.5":
+  "integrity" "sha512-xC7nuPu4GUH0da6byofQ10LjtqlKj+VaLc0NHBJmeMHVvdvmRvFEO6UOq0Q0m/ePx3OQiPTNwGbf5BSPJEKa0w=="
+  "resolved" "https://registry.npmjs.org/react-native-image-gallery/-/react-native-image-gallery-2.1.5.tgz"
+  "version" "2.1.5"
+  dependencies:
+    "prop-types" "^15.6.0"
+    "react-mixin" "^3.0.5"
+    "react-timer-mixin" "^0.13.3"
 
 "react-native-image-picker@^3.3.2":
   "integrity" "sha512-7z902J7a7j2rUM6zzyLSGpBSDfXy/V9ssSDKV0QyoQpr7COZs3zsJye2PU1Z4TRqmuNtREIeG5m1NdwtpcXBkg=="
@@ -4918,6 +4935,11 @@
   "integrity" "sha512-Hwln1VNuGl/6bVwnd0Xdn1e84gT/8T9aYNL+HAKDArLCS7LWjwr7StE30IEYbIkx0Vi3vs+coQxe+SQDbGbbpA=="
   "resolved" "https://registry.npmjs.org/react-refresh/-/react-refresh-0.4.3.tgz"
   "version" "0.4.3"
+
+"react-timer-mixin@^0.13.3":
+  "integrity" "sha512-4+ow23tp/Tv7hBM5Az5/Be/eKKF7DIvJ09voz5LyHGQaqqz9WV8YMs31eFvcYQs7d451LSg7kDJV70XYN/Ug/Q=="
+  "resolved" "https://registry.npmjs.org/react-timer-mixin/-/react-timer-mixin-0.13.4.tgz"
+  "version" "0.13.4"
 
 "react@*", "react@^16.8.0 || ^17.0.0", "react@>= 16.0 || < 18.0", "react@>=16.3.0", "react@>=17.0.1", "react@17.0.1":
   "integrity" "sha512-lG9c9UuMHdcAexXtigOZLX8exLWkW0Ku29qPRU8uhF2R9BN96dLCt0psvzPLlHc5OWkgymP3qwTRgbnw5BKx3w=="
@@ -5348,6 +5370,11 @@
   "integrity" "sha512-5ofqMTbetNhxlzjYYLBaZFQd6oiTuSkQlyfPEFIMwgUABlZQ0hbk5xIV9Ydd5jghWeRoO7GkiJliUvTpLOjNRA=="
   "resolved" "https://registry.npmjs.org/slugify/-/slugify-1.6.1.tgz"
   "version" "1.6.1"
+
+"smart-mixin@^2.0.0":
+  "integrity" "sha1-o0oQVeMqdbMNK048oyPcmctT9Dc="
+  "resolved" "https://registry.npmjs.org/smart-mixin/-/smart-mixin-2.0.0.tgz"
+  "version" "2.0.0"
 
 "snapdragon-node@^2.0.1":
   "integrity" "sha512-O27l4xaMYt/RSQ5TR3vpWCAB5Kb/czIcqUFOM/C4fYcLnbZUc1PkjTAMjof2pBWaSTwOUd6qUHcFGVGj7aIwnw=="

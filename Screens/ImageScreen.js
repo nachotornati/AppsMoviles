@@ -2,31 +2,22 @@ import React, { useEffect, useState } from 'react';
 import { Button, View, StyleSheet, StatusBar, Text, FlatList, TouchableHighlight, Image} from 'react-native';
 import PictureAdder from '../Components/PictureAdder';
 //Hay que hacer un fetch para traer categoria de fotos y otro para traer datos de la familia
+import Gallery from 'react-native-image-gallery';
 
-export default function ImageScreen({ navigation, route }) {
-    const [ information, setInformation ] = useState();
-    const { id } = route.params;
-  
-    const obtenerDatos = async () => {
-      const data = await fetch("http://modulo-backoffice.herokuapp.com/families/x-test-obtain-resumed-family/"+ id)
-      const response = await data.json()
-      setInformation(response)
-    }
-  
-    useEffect( () => {
-      obtenerDatos()
-    }, [navigation])
+
+export default function ImageScreen({navigation,route}) {
+  console.log(route);
+
+    const id = route.params.id
+    const category = route.params.category
+
   
     return (
-      // Cambiar con fotos <FlatList keyExtractor={(item) => item._id} data={usuarios} renderItem={ ({item}) => <TouchableHighlight onPress={() => navigation.navigate('Map',item._id)}><FamilyInfoCard item={item}/></TouchableHighlight>} />
-      <View>
-        <Text>Aca van las fotos de la familia {id}</Text>
-        <TouchableHighlight onPress={()=>{navigation.navigate('Map',id)}}>
-        <Image source={{uri: 'https://drive.google.com/thumbnail?id=1bDYTk5uvJTE3_bvTQ1TjnzmhZ3Va0Xib'}} alt={"Doesn't work"}
-         style={{width: 400, height: 400}} />
-        </TouchableHighlight>
-         
-         <PictureAdder familyid={id} category='bathroom_picture'></PictureAdder>
-      </View>
+      <Gallery
+        style={{ flex: 1, backgroundColor: 'black' }}
+        images={[
+          { source: { uri: "https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/"+ id + "/"+ category} }
+        ]}
+      />
     );
  }

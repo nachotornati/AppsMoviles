@@ -21,6 +21,8 @@ export default function FamiliesScreen ({ navigation }) {
     obtenerDatos()
   }, [])
 
+  
+
   const obtenerDatos = async () => {
     const data = await fetch("http://modulo-backoffice.herokuapp.com/families/x-test-obtain-families")
     const users = await data.json()
@@ -39,6 +41,7 @@ export default function FamiliesScreen ({ navigation }) {
     </TouchableHighlight>
    // ({item}) => <TouchableHighlight onPress={() => navigation.navigate('Family',{id:item._id})}><FamilyInfoCard item={item}/></TouchableHighlight>
   );
+
 
   return (
     //<FlatList keyExtractor={(item) => item._id} data={usuarios} renderItem={ ({item}) => <TouchableHighlight onPress={() => navigation.navigate('Family', {id: item._id})}><FamilyInfoCard item={item}/></TouchableHighlight>} />
