@@ -3,6 +3,7 @@ import { Button, View, StyleSheet, StatusBar, Text, FlatList, TouchableHighlight
 import AppButton from '../Components/AppButton';
 import { FamilyInfoCard } from '../Components/FamilyInfoCard';
 import PictureAdder from '../Components/PictureAdder';
+import asyncStorageHelper from '../Helpers/asyncStorageHelper'
 
 
 //Hay que hacer un fetch para traer categoria de fotos y otro para traer datos de la familia
@@ -10,37 +11,29 @@ import PictureAdder from '../Components/PictureAdder';
 export default function FamilyScreen({ navigation, route }) {
     const [ information, setInformation ] = useState({});
     const [ categories, setCategories ] = useState({});
+    const [ token, setToken ] = useState('');
     const  id  = route.params.id;
     
     const obtenerDatos = async () => {
-      const data = await fetch("http://modulo-backoffice.herokuapp.com/families/x-test-obtain-resumed-family/"+ id)
+      jwt = await asyncStorageHelper.obtenerToken()
+      setToken(jwt)
+
+      https_options_back = { 
+        method: 'get', 
+        headers: {
+          'Authorization': jwt
+        }
+      }
       //const data2= await fetch()
-      const dataCategories = await fetch("https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/categories")
-      const response = await data.json()
+      const dataCategories = await fetch("https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/categories", https_options_back)
       const responseCategories = await dataCategories.json()
-      
-      setInformation(response)
       setCategories(responseCategories)
       
     }
-    
+
     useEffect( () => {
       obtenerDatos()
     }, [navigation])
-  
-    /*return (
-      // Cambiar con fotos <FlatList keyExtractor={(item) => item._id} data={usuarios} renderItem={ ({item}) => <TouchableHighlight onPress={() => navigation.navigate('Map',item._id)}><FamilyInfoCard item={item}/></TouchableHighlight>} />
-      <View>
-        <Text>Aca van las fotos de la familia {id}</Text>
-        <TouchableHighlight onPress={()=>{navigation.navigate('Map',id)}}>
-        <Image source={{uri: 'https://drive.google.com/thumbnail?id=1bDYTk5uvJTE3_bvTQ1TjnzmhZ3Va0Xib'}} alt={"Doesn't work"}
-         style={{width: 400, height: 400}} />
-        </TouchableHighlight>
-         
-         <PictureAdder familyid={id} category='bathroom_picture'></PictureAdder>
-      </View>
-    );*/
-
 
     const onPressCategory = (id,category) => {
       console.log("id antes ", id);
@@ -54,7 +47,9 @@ export default function FamilyScreen({ navigation, route }) {
       
       <TouchableHighlight underlayColor="rgba(73,182,77,0.9)" onPress={() => onPressCategory(id,item.path)}>
         <View style={styles.categoriesItemContainer}>
-          <Image style={styles.categoriesPhoto} source={{ uri: "https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/"+ id + "/"+ item.path}} />
+          <Image style={styles.categoriesPhoto} source={{
+              uri: "https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/"+ id + "/"+ item.path,
+              headers: { Authorization: token }}} />
           <View style={styles.categoryNameContainer}> 
           <Text style={styles.categoriesName}>{item.name.spanish}</Text>
           <PictureAdder style={styles.categoriesName} familyid={id} category={item.path} > </PictureAdder>

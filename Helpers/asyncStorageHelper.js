@@ -20,3 +20,8 @@ const obtenerToken = async () => {
         console.log(e)
     }
 }
+
+export default {
+    guardarToken,
+    obtenerToken
+}
