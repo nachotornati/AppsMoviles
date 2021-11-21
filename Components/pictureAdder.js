@@ -20,26 +20,23 @@ const actionSheetRef = createRef();
 
 
 class PictureAdder extends React.Component {
+    
     constructor(props){
-      super()
+        super();
+        console.log('Se creo boton con cat ', props.category);
+        console.log('Se creo boton con id ', props.id);
+        this.state = {
+          id: props.id,
+          category: props.category
+        }
+
     }
 
     render() {
         return (
             <View>          
-            <AppButton title={'Agregar'}
-                onPress={() => { actionSheetRef.current?.setModalVisible();}}/>
-              
-        
-              <ActionSheet ref={actionSheetRef}>
-                <View>
-                <Button title="open camera" onPress={ ()=>{ this.openCamera()}}/>
-                </View>
-        
-                <View>
-                <Button title="open gallery" onPress={ ()=>{this.openLibrary()}}/>
-                </View>
-              </ActionSheet>
+            <AppButton title={'+'}
+                onPress={()=>{ this.openLibrary()}}/>
             </View>
         
             
@@ -47,7 +44,7 @@ class PictureAdder extends React.Component {
           );
     }
 
-    openCamera(){
+    openCamera(id, category){
       const options = {
         mediaType:'photo',
         selectionLimit:1,
@@ -75,7 +72,9 @@ class PictureAdder extends React.Component {
     }
 
     uploadPictureToServer(imagePath){ // change url
-      let url = 'https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/50/bathroom_picture'
+      console.log('upload method ' + this.state.id + this.state.category)
+      let url = 'https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/' + this.state.id  + '/' +  this.state.category
+      console.log('LINK FOTO')
       let body = new FormData();
       body.append('upload', {uri: imagePath,name: 'photo.jpg',filename :'imageTest45.jpg',type: 'image/jpg'});
 

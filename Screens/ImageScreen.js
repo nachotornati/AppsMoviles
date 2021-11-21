@@ -16,7 +16,7 @@ export default function ImageScreen({navigation,route}) {
       <Gallery
         style={{ flex: 1, backgroundColor: 'black' }}
         images={[
-          { source: { uri: "https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/"+ id + "/"+ category} }
+          { source: { uri: "https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/"+ id + "/"+ category + '?time=' + new Date()} }
         ]}
       />
     );
