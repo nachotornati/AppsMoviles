@@ -3,27 +3,33 @@ import { render } from "react-dom";
 import{Platform, StyleSheet,Text,View, TouchableHighlight, Image} from "react-native";
 import AppButton from "./AppButton";
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-
+import asyncStorageHelper from '../Helpers/asyncStorageHelper'
+import ImageView from "react-native-image-viewing";
 
 
 export default class Category extends Component{
-    
     constructor(props){
         super(props);
         this.state={
             id: this.props.id,
             item: this.props.item,
             navigation: this.props.navigation,
-            date: new Date()
-        }
+            date: new Date(),
+            token: this.props.token,
+            visible: false
+          }
+    }
+
+    setIsVisible(boolean){
+      this.setState({visible: boolean})
     }
 
 
-    onPressCategory(id,category){
+    onPressCategory(id,category, token){
         console.log("id antes ", id);
         console.log("path antes ", category);
-        this.state.navigation.navigate("Image", {id,category});
-  
+        //this.state.navigation.navigate("Image", {id,category, token});
+        this.setIsVisible(true)
     }
 
     openLibrary(){
@@ -40,17 +46,17 @@ export default class Category extends Component{
         });
       }
 
-      uploadPictureToServer(imagePath){ // change url
+     async uploadPictureToServer(imagePath){ // change url
         console.log('upload method ' + this.state.id + this.state.item.path)
         let url = 'https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/' + this.state.id  + '/' +  this.state.item.path
         console.log('LINK FOTO')
         let body = new FormData();
         body.append('upload', {uri: imagePath,name: 'photo.jpg',filename :'imageTest45.jpg',type: 'image/jpg'});
-  
         fetch(url,{ method: 'POST',headers:{  
           "Content-Type": "multipart/form-data",
           "otherHeader": "foo",
-          } , body :body} )
+          "Authentication": this.state.token
+        } , body :body} )
        .then((res) => { console.log("response " +res) } ) 
        .catch((e) => console.log(e))
        .done();
@@ -62,12 +68,16 @@ export default class Category extends Component{
 
 
     render(){
-        
         return(
             
-        <TouchableHighlight underlayColor="rgba(73,182,77,0.9)" onPress={() => this.onPressCategory(this.state.id,this.state.item.path)}>
+        <TouchableHighlight underlayColor="rgba(73,182,77,0.9)" onPress={() => this.onPressCategory(this.state.id,this.state.item.path, this.state.token)}>
         <View style={styles.categoriesItemContainer}>
-        <Image style={styles.categoriesPhoto} source={{ uri: "https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/"+ this.props.id + "/"+ this.props.item.path + '?time=' + new Date()}} />
+        <ImageView images={[{
+          uri: "https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/"+ this.props.id + "/"+ this.props.item.path + '?time=' + new Date(),
+          headers: { Authorization: this.state.token }}]} imageIndex={0} visible={this.state.visible} onRequestClose={() => this.setIsVisible(false)} />
+        <Image style={styles.categoriesPhoto} source={{
+          uri: "https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/"+ this.props.id + "/"+ this.props.item.path + '?time=' + new Date(),
+          headers: { Authorization: this.state.token }}} />
           <View style={styles.categoryNameContainer}> 
           <Text style={styles.categoriesName}>{this.state.item.name.spanish}</Text>
           <AppButton title={'+'} onPress={()=>{ this.openLibrary()}}/>

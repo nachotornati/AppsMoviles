@@ -3,6 +3,7 @@ import React, { useEffect, useState ,useLayoutEffect} from 'react';
 import { Button, View, StyleSheet, StatusBar, Text, FlatList, TouchableHighlight, Image} from 'react-native';
 import { Dimensions } from 'react-native';
 import Background from '../Components/Background';
+import asyncStorageHelper from '../Helpers/asyncStorageHelper'
 
 
 const { width, height } = Dimensions.get('window');
@@ -24,7 +25,16 @@ export default function FamiliesScreen ({ navigation }) {
   
 
   const obtenerDatos = async () => {
-    const data = await fetch("http://modulo-backoffice.herokuapp.com/families/x-test-obtain-families")
+    jwt = await asyncStorageHelper.obtenerToken()
+    console.log(jwt)
+    https_options = { 
+      method: 'get', 
+      headers: new Headers({
+        'Authorization': jwt
+      })
+    }
+
+    const data = await fetch("http://modulo-backoffice.herokuapp.com/families/obtain-families", https_options)
     const users = await data.json()
     setUsuarios(users.results)
   }

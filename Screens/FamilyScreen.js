@@ -4,21 +4,29 @@ import { Modal } from 'react-native-paper';
 import AppButton from '../Components/AppButton';
 import { FamilyInfoCard } from '../Components/FamilyInfoCard';
 import PictureAdder from '../Components/PictureAdder';
+import asyncStorageHelper from '../Helpers/asyncStorageHelper';
 import Category from '../Components/Category';
-
-
 
 //Hay que hacer un fetch para traer categoria de fotos y otro para traer datos de la familia
 
 export default function FamilyScreen({ navigation, route }) {
     const [ information, setInformation ] = useState({});
     const [ categories, setCategories ] = useState({});
+    const [ token, setToken ] = useState('');
     const [loading, setLoading] = useState(true);
     const  id  = route.params.id;
-    
+
     const obtenerDatos = async () => {
+      jwt = await asyncStorageHelper.obtenerToken()
+      setToken(jwt)
+
+      https_options_back = { 
+        method: 'get', 
+        headers: { 'Authorization': jwt }
+      }
+
       const data = await fetch("http://modulo-backoffice.herokuapp.com/families/x-test-obtain-resumed-family/"+ id)
-      const dataCategories = await fetch("https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/categories")
+      const dataCategories = await fetch("https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/categories", https_options_back)
       const response = await data.json()
       const responseCategories = await dataCategories.json()
       
@@ -28,10 +36,16 @@ export default function FamilyScreen({ navigation, route }) {
       setLoading(false)
       
     }
-    
+
     useEffect( () => {
       obtenerDatos()
     }, [navigation])
+
+    const onPressCategory = (id,category) => {
+      console.log("id antes ", id);
+      console.log("path antes ", category);
+      navigation.navigate("Image", {id,category});
+    }
 
     const startLoading = () => {
       setLoading(true);
@@ -42,11 +56,9 @@ export default function FamilyScreen({ navigation, route }) {
     
     //<Text style={styles.categoriesInfo}>{getNumberOfPhotos(item.id)} photos</Text>
     const renderCategory = ({ item }) => (
-      <Category navigation={navigation} id={id} item={item}></Category>
+      <Category navigation={navigation} id={id} item={item} token={token} ></Category>
     );
 
-
-  
     return (
       
     <SafeAreaView style={{flex: 1}}>
@@ -80,8 +92,6 @@ export default function FamilyScreen({ navigation, route }) {
     );
   
   }
-
-  
 
   const styles = StyleSheet.create({
     container: {

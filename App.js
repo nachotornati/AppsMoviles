@@ -2,7 +2,6 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-
 /*Screens*/
 import GoogleLogIn  from './Screens/GoogleLogIn.js';
 import FamiliesScreen  from './Screens/FamiliesScreen.js';
