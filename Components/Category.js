@@ -1,4 +1,5 @@
 import React,{Component} from "react";
+import { render } from "react-dom";
 import{Platform, StyleSheet,Text,View, TouchableHighlight, Image} from "react-native";
 import AppButton from "./AppButton";
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
