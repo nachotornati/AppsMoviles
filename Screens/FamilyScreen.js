@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Button, View, StyleSheet, StatusBar, Text, FlatList, TouchableHighlight, Image, Alert, SafeAreaView, ActivityIndicator} from 'react-native';
 import { Modal } from 'react-native-paper';
 import AppButton from '../Components/AppButton';
+import { FamilyInfoCard } from '../Components/FamilyInfoCard';
+import PictureAdder from '../Components/PictureAdder';
 import asyncStorageHelper from '../Helpers/asyncStorageHelper';
 import Category from '../Components/Category';
 
@@ -29,6 +31,7 @@ export default function FamilyScreen({ navigation, route }) {
       const responseCategories = await dataCategories.json()
       
       setInformation(response)
+      console.log(response)
       setCategories(responseCategories)
       setLoading(false)
       
@@ -37,6 +40,12 @@ export default function FamilyScreen({ navigation, route }) {
     useEffect( () => {
       obtenerDatos()
     }, [navigation])
+
+    const onPressCategory = (id,category) => {
+      console.log("id antes ", id);
+      console.log("path antes ", category);
+      navigation.navigate("Image", {id,category});
+    }
 
     const startLoading = () => {
       setLoading(true);
