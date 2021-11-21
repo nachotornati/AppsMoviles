@@ -4,6 +4,7 @@ import { Modal } from 'react-native-paper';
 import AppButton from '../Components/AppButton';
 import { FamilyInfoCard } from '../Components/FamilyInfoCard';
 import PictureAdder from '../Components/PictureAdder';
+import Category from '../Components/Category';
 
 
 
@@ -38,27 +39,10 @@ export default function FamilyScreen({ navigation, route }) {
         setLoading(false);
       }, 3000);
     };
-
-
-    const onPressCategory = (id,category) => {
-      console.log("id antes ", id);
-      console.log("path antes ", category);
-      navigation.navigate("Image", {id,category});
-
-    };
     
     //<Text style={styles.categoriesInfo}>{getNumberOfPhotos(item.id)} photos</Text>
     const renderCategory = ({ item }) => (
-      
-      <TouchableHighlight underlayColor="rgba(73,182,77,0.9)" onPress={() => onPressCategory(id,item.path)}>
-        <View style={styles.categoriesItemContainer}>
-          <Image style={styles.categoriesPhoto} source={{ uri: "https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/"+ id + "/"+ item.path + '?time=' + new Date()}} />
-          <View style={styles.categoryNameContainer}> 
-          <Text style={styles.categoriesName}>{item.name.spanish}</Text>
-          <PictureAdder style={styles.categoriesName} id={id} category={item.path}> </PictureAdder>
-          </View>
-        </View>
-      </TouchableHighlight>
+      <Category navigation={navigation} id={id} item={item}></Category>
     );
 
 
