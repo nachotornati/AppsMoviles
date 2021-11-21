@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Button, View, StyleSheet, StatusBar, Text, FlatList, TouchableHighlight, Image, Alert, SafeAreaView} from 'react-native';
+import { Button, View, StyleSheet, StatusBar, Text, FlatList, TouchableHighlight, Image, Alert, SafeAreaView, ActivityIndicator} from 'react-native';
+import { Modal } from 'react-native-paper';
 import AppButton from '../Components/AppButton';
-import { FamilyInfoCard } from '../Components/FamilyInfoCard';
-import PictureAdder from '../Components/PictureAdder';
-import asyncStorageHelper from '../Helpers/asyncStorageHelper'
-
+import asyncStorageHelper from '../Helpers/asyncStorageHelper';
+import Category from '../Components/Category';
 
 //Hay que hacer un fetch para traer categoria de fotos y otro para traer datos de la familia
 
@@ -12,22 +11,26 @@ export default function FamilyScreen({ navigation, route }) {
     const [ information, setInformation ] = useState({});
     const [ categories, setCategories ] = useState({});
     const [ token, setToken ] = useState('');
+    const [loading, setLoading] = useState(true);
     const  id  = route.params.id;
-    
+
     const obtenerDatos = async () => {
       jwt = await asyncStorageHelper.obtenerToken()
       setToken(jwt)
 
       https_options_back = { 
         method: 'get', 
-        headers: {
-          'Authorization': jwt
-        }
+        headers: { 'Authorization': jwt }
       }
-      //const data2= await fetch()
+
+      const data = await fetch("http://modulo-backoffice.herokuapp.com/families/x-test-obtain-resumed-family/"+ id)
       const dataCategories = await fetch("https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/categories", https_options_back)
+      const response = await data.json()
       const responseCategories = await dataCategories.json()
+      
+      setInformation(response)
       setCategories(responseCategories)
+      setLoading(false)
       
     }
 
@@ -35,54 +38,64 @@ export default function FamilyScreen({ navigation, route }) {
       obtenerDatos()
     }, [navigation])
 
-    const onPressCategory = (id,category) => {
-      console.log("id antes ", id);
-      console.log("path antes ", category);
-      navigation.navigate("Image", {id,category});
-
+    const startLoading = () => {
+      setLoading(true);
+      setTimeout(() => {
+        setLoading(false);
+      }, 3000);
     };
     
     //<Text style={styles.categoriesInfo}>{getNumberOfPhotos(item.id)} photos</Text>
     const renderCategory = ({ item }) => (
-      
-      <TouchableHighlight underlayColor="rgba(73,182,77,0.9)" onPress={() => onPressCategory(id,item.path)}>
-        <View style={styles.categoriesItemContainer}>
-          <Image style={styles.categoriesPhoto} source={{
-              uri: "https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/"+ id + "/"+ item.path,
-              headers: { Authorization: token }}} />
-          <View style={styles.categoryNameContainer}> 
-          <Text style={styles.categoriesName}>{item.name.spanish}</Text>
-          <PictureAdder style={styles.categoriesName} familyid={id} category={item.path} > </PictureAdder>
-          </View>
-        </View>
-      </TouchableHighlight>
+      <Category navigation={navigation} id={id} item={item} token={token} ></Category>
     );
-  
-    return (
-    <SafeAreaView style={{flex: 1}}>
 
-      <FlatList ListHeaderComponent={
-              
-              <View style={styles.familyInfoContainer}>
-              <Text style={styles.infoRecipeName} >Familia tornati</Text>
-                <View style={{marginBottom:10}}>
-                  <Text style={styles.infoDescriptionRecipe}>Direccion: La deseada</Text>
-                  <Text style={styles.infoDescriptionRecipe} >Barrio: La deseada</Text>
-                  <Text style={styles.infoDescriptionRecipe} >Partido: Ezeiza</Text>
-                  <Text style={styles.infoDescriptionRecipe}>Provincia:Buenos Aires</Text>
-                </View>
-              <AppButton title={'Ver mapa'} onPress={()=>{navigation.navigate('Map',id)}}/>
+    return (
       
-            </View>
-      } data={categories.categories} renderItem={renderCategory} keyExtractor={(item) => item.name. spanish} />
+    <SafeAreaView style={{flex: 1}}>
+      {loading ? (
+          <ActivityIndicator
+            //visibility of Overlay Loading Spinner
+            visible={loading}
+            //Text with the Spinner
+            textContent={'Loading...'}
+            //Text style of the Spinner Text
+            textStyle={styles.spinnerTextStyle}
+          />
+        ) : (
+
+          <FlatList ListHeaderComponent={
+              
+            <View style={styles.familyInfoContainer}>
+            <Text style={styles.infoRecipeName} >{'Familia ' + information.apellido}</Text>
+              <View style={{marginBottom:10}}>
+                <Text style={styles.infoDescriptionRecipe} >{'Estado: ' + information.estado}</Text>
+              </View>
+            <AppButton title={'Ver mapa'} onPress={()=>{navigation.navigate('Map',id)}}/>
+    
+          </View>
+    } data={categories.categories} renderItem={renderCategory} keyExtractor={(item) => item.name. spanish} />
+
+        )}
+
+      
     </SafeAreaView>
     );
   
   }
 
-  
-
   const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: 'center',
+      textAlign: 'center',
+      paddingTop: 30,
+      backgroundColor: '#ecf0f1',
+      padding: 8,
+    },
+    spinnerTextStyle: {
+      color: '#FFF',
+    },
     categoriesItemContainer: {
       margin: 10,
       justifyContent: 'center',
@@ -98,7 +111,7 @@ export default function FamilyScreen({ navigation, route }) {
       margin: 10,
       justifyContent: 'center',
       alignItems: 'center',
-      height: 240,
+      height: 230,
       borderColor: '#cccccc',
       borderWidth: 0.5,
       borderRadius: 20,
