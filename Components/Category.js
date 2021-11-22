@@ -1,10 +1,10 @@
 import React,{Component} from "react";
-import { render } from "react-dom";
 import{Platform, StyleSheet,Text,View, TouchableHighlight, Image, Alert} from "react-native";
 import AppButton from "./AppButton";
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import asyncStorageHelper from '../Helpers/asyncStorageHelper'
+import {Button} from 'react-native-paper'
 import ImageView from "react-native-image-viewing";
+import CategoryButton from '../Components/CategoryButton';
 
 
 export default class Category extends Component{
@@ -131,9 +131,9 @@ export default class Category extends Component{
           headers: { Authorization: this.state.token }}} />
           <View style={styles.categoryNameContainer}> 
           <Text style={styles.categoriesName}>{this.state.item.name.spanish}</Text>
-          <AppButton title={'+'} onPress={()=>{ this.openLibrary()}}/>
-          <AppButton title={'C'} onPress={()=>{ this.openCamera()}}/>
-          <AppButton title={'-'} onPress={()=>{ this.showConfirmDialog()}}/>
+          <CategoryButton uri={'http://cdn.onlinewebfonts.com/svg/img_211436.png'} onPress={()=>{ this.openLibrary()}}/>
+          <CategoryButton uri={'http://cdn.onlinewebfonts.com/svg/img_292414.png'} onPress={()=>{ this.openCamera()}}/>
+          <CategoryButton title={'http://cdn.onlinewebfonts.com/svg/img_404379.png'} onPress={()=>{ this.showConfirmDialog()}}/>
           </View>
         </View>
       </TouchableHighlight>
