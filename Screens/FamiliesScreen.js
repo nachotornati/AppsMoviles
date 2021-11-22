@@ -16,6 +16,7 @@ const RECIPE_ITEM_MARGIN = 20;
 
 export default function FamiliesScreen ({ navigation }) {
   const [ usuarios, setUsuarios ] = useState();
+  const [token, setToken] = useState();
 
   useEffect( () => {
     console.log('useEffect')
@@ -37,29 +38,23 @@ export default function FamiliesScreen ({ navigation }) {
     const data = await fetch("http://modulo-backoffice.herokuapp.com/families/obtain-families", https_options)
     const users = await data.json()
     setUsuarios(users.results)
+    setToken(jwt)
   }
 
   const onPressFamily = (item) => {
     navigation.navigate("Family", { id:item._id });
   };
 
-  const renderFamilies = ({ item }) => (
-    <TouchableHighlight style={{flex:1}} underlayColor='#85C1E9' onPress={() => onPressFamily(item)}>
-      <View style={styles.container}>
-        <FamilyInfoCard item= {item} />
-      </View>
-    </TouchableHighlight>
-   // ({item}) => <TouchableHighlight onPress={() => navigation.navigate('Family',{id:item._id})}><FamilyInfoCard item={item}/></TouchableHighlight>
+  const renderRecipes = ({ item }) => (
+    
+      <FamilyInfoCard navigation={navigation} item={item} token={token}></FamilyInfoCard>
+    
   );
 
-
   return (
-    //<FlatList keyExtractor={(item) => item._id} data={usuarios} renderItem={ ({item}) => <TouchableHighlight onPress={() => navigation.navigate('Family', {id: item._id})}><FamilyInfoCard item={item}/></TouchableHighlight>} />
-    
-    <View style={styles.container_style}>
-      <FlatList  vertical showsVerticalScrollIndicator={false} numColumns={2} keyExtractor={(item) => item._id} data={usuarios} renderItem={renderFamilies } />
+    <View>
+      <FlatList data={usuarios} renderItem={renderRecipes} keyExtractor={(item) => item._id} />
     </View>
-    
   );
 };
 
@@ -76,8 +71,26 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderRadius: 15,
     backgroundColor:'white'
-    
+  },
+  photo: {
+    width: (SCREEN_WIDTH - (recipeNumColums + 1) * RECIPE_ITEM_MARGIN) / recipeNumColums,
+    height: RECIPE_ITEM_HEIGHT,
+    borderRadius: 15,
+    borderBottomLeftRadius: 0,
+    borderBottomRightRadius: 0
+  },
+  title: {
+    flex: 1,
+    fontSize: 17,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: '#444444',
+    marginTop: 3,
+    marginRight: 5,
+    marginLeft: 5,
+  },
+  category: {
+    marginTop: 5,
+    marginBottom: 5
   }
-
-
 });

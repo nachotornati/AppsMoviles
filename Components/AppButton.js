@@ -13,12 +13,11 @@ export default function AppButton  ({title, onPress}) {
     // ...
     appButtonContainer: {
       elevation: 8,
-      backgroundColor: "#009688",
+      backgroundColor: "#07a8ed",
       borderRadius: 10,
       paddingVertical: 10,
-      paddingHorizontal: 30,
-      //margin:10,
-      //marginTop:15
+      paddingHorizontal: 20,
+      margin:5,
     },
     appButtonText: {
       fontSize: 18,

@@ -3,7 +3,6 @@ import { Button, View, StyleSheet, StatusBar, Text, FlatList, TouchableHighlight
 import { Modal } from 'react-native-paper';
 import AppButton from '../Components/AppButton';
 import { FamilyInfoCard } from '../Components/FamilyInfoCard';
-import PictureAdder from '../Components/PictureAdder';
 import asyncStorageHelper from '../Helpers/asyncStorageHelper';
 import Category from '../Components/Category';
 
@@ -41,18 +40,6 @@ export default function FamilyScreen({ navigation, route }) {
       obtenerDatos()
     }, [navigation])
 
-    const onPressCategory = (id,category) => {
-      console.log("id antes ", id);
-      console.log("path antes ", category);
-      navigation.navigate("Image", {id,category});
-    }
-
-    const startLoading = () => {
-      setLoading(true);
-      setTimeout(() => {
-        setLoading(false);
-      }, 3000);
-    };
     
     //<Text style={styles.categoriesInfo}>{getNumberOfPhotos(item.id)} photos</Text>
     const renderCategory = ({ item }) => (
@@ -78,7 +65,7 @@ export default function FamilyScreen({ navigation, route }) {
             <View style={styles.familyInfoContainer}>
             <Text style={styles.infoRecipeName} >{'Familia ' + information.apellido}</Text>
               <View style={{marginBottom:10}}>
-                <Text style={styles.infoDescriptionRecipe} >{'Estado: ' + information.estado}</Text>
+                <Text style={styles.infoDescriptionRecipe} >{information.estado}</Text>
               </View>
             <AppButton title={'Ver mapa'} onPress={()=>{navigation.navigate('Map',id)}}/>
     

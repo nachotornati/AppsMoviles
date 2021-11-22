@@ -1,6 +1,6 @@
 import React,{Component} from "react";
 import { render } from "react-dom";
-import{Platform, StyleSheet,Text,View, TouchableHighlight, Image} from "react-native";
+import{Platform, StyleSheet,Text,View, TouchableHighlight, Image, Alert} from "react-native";
 import AppButton from "./AppButton";
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import asyncStorageHelper from '../Helpers/asyncStorageHelper'
@@ -46,6 +46,19 @@ export default class Category extends Component{
         });
       }
 
+      openCamera(){
+        const options = {
+          mediaType:'photo',
+          selectionLimit:1,
+        }
+  
+        launchCamera(options,(res)=>{
+          console.log('Subiendo Imagen....');
+          console.log(res.uri);
+          this.uploadPictureToServer(res.uri);
+        });
+      }
+
      async uploadPictureToServer(imagePath){ // change url
         console.log('upload method ' + this.state.id + this.state.item.path)
         let url = 'https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/' + this.state.id  + '/' +  this.state.item.path
@@ -66,6 +79,44 @@ export default class Category extends Component{
   
       }
 
+    showConfirmDialog = () => {
+        return Alert.alert(
+          "Eliminar imagen",
+          "¿Estas seguro que deseas eliminar esta imagen?",
+          [
+            // The "Yes" button
+            {
+              text: "Si",
+              onPress: () => {
+                this.deletePicture();
+              },
+            },
+            // The "No" button
+            // Does nothing but dismiss the dialog when tapped
+            {
+              text: "No",
+            },
+          ]
+        );
+      };
+
+    deletePicture(){
+      let url = 'https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/' + this.state.id  + '/' +  this.state.item.path
+      var requestOptions = {
+        method: 'DELETE',
+        redirect: 'follow',
+        headers: {
+          Authorization: this.state.token
+        }
+      };
+      
+      fetch(url, requestOptions)
+        .then(response => response.text())
+        .then(result => console.log(result))
+        .catch(error => console.log('error', error));
+       setTimeout(()=>{this.setState({date: new Date()})},2000)
+    }
+
 
     render(){
         return(
@@ -81,6 +132,8 @@ export default class Category extends Component{
           <View style={styles.categoryNameContainer}> 
           <Text style={styles.categoriesName}>{this.state.item.name.spanish}</Text>
           <AppButton title={'+'} onPress={()=>{ this.openLibrary()}}/>
+          <AppButton title={'C'} onPress={()=>{ this.openCamera()}}/>
+          <AppButton title={'-'} onPress={()=>{ this.showConfirmDialog()}}/>
           </View>
         </View>
       </TouchableHighlight>
