@@ -6,11 +6,6 @@ const { width, height } = Dimensions.get('window');
 // orientation must fixed
 const SCREEN_WIDTH = width < height ? width : height;
 
-const recipeNumColums = 2;
-// item size
-const RECIPE_ITEM_HEIGHT = 150;
-const RECIPE_ITEM_MARGIN = 20;
-
 export function FamilyInfoCard(props) {
     //console.log(props)
     return(
@@ -111,25 +106,25 @@ const styles = StyleSheet.create({
 
   },
 
-  infoRecipe: {
+  infoFamily: {
     fontSize: 14,
     fontWeight: 'bold',
     marginLeft: 5,
   },
-  category: {
+  family: {
     fontSize: 14,
     fontWeight: 'bold',
     margin: 10,
     color: '#2cd18a'
   },
-  infoDescriptionRecipe: {
+  infoDescriptionFamily: {
     color: 'black',
     fontWeight: 'bold',
     fontSize: 16,
     marginTop:5,
     textAlign:'center'
   },
-  infoRecipeName: {
+  infoFamilyName: {
     fontSize: 28,
     margin: 10,
     fontWeight: 'bold',

@@ -6,18 +6,13 @@ import Background from '../Components/Background';
 import asyncStorageHelper from '../Helpers/asyncStorageHelper'
 import { SearchBar } from 'react-native-elements';
 import { TextInput } from 'react-native-paper';
-//import * as AntDesign from 'react-native-vector-icons/AntDesign';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-import { GoogleSignin, GoogleSigninButton, statusCodes} from '@react-native-google-signin/google-signin';
+import { GoogleSignin} from '@react-native-google-signin/google-signin';
 
 const { width, height } = Dimensions.get('window');
-// orientation must fixed
 const SCREEN_WIDTH = width < height ? width : height;
 
-const recipeNumColums = 2;
-const RECIPE_ITEM_HEIGHT = 150;
-const RECIPE_ITEM_MARGIN = 20;
 
 export default function FamiliesScreen ({ navigation }) {
   const [ usuarios, setUsuarios ] = useState();
@@ -108,26 +103,6 @@ export default function FamiliesScreen ({ navigation }) {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: RECIPE_ITEM_MARGIN,
-    marginTop: 20,
-    width: (SCREEN_WIDTH - (recipeNumColums + 1) * RECIPE_ITEM_MARGIN) / recipeNumColums,
-    height: RECIPE_ITEM_HEIGHT + 75,
-    borderColor: '#cccccc',
-    borderWidth: 0.5,
-    borderRadius: 15,
-    backgroundColor:'white'
-  },
-  photo: {
-    width: (SCREEN_WIDTH - (recipeNumColums + 1) * RECIPE_ITEM_MARGIN) / recipeNumColums,
-    height: RECIPE_ITEM_HEIGHT,
-    borderRadius: 15,
-    borderBottomLeftRadius: 0,
-    borderBottomRightRadius: 0
-  },
   title: {
     flex: 1,
     fontSize: 17,

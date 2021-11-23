@@ -121,7 +121,7 @@ export default class Category extends Component{
     render(){
         return(
             
-        <TouchableHighlight underlayColor="rgba(73,182,77,0.9)" onPress={() => this.onPressCategory(this.state.id,this.state.item.path, this.state.token)}>
+        <TouchableHighlight underlayColor="rgba(37, 150, 190,0.2)" onPress={() => this.onPressCategory(this.state.id,this.state.item.path, this.state.token)}>
         <View style={styles.categoriesItemContainer}>
         <ImageView images={[{
           uri: "https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/"+ this.props.id + "/"+ this.props.item.path + '?time=' + new Date(),
@@ -231,7 +231,7 @@ const styles = StyleSheet.create({
 
     },
  
-    infoRecipe: {
+    infoCategory: {
       fontSize: 14,
       fontWeight: 'bold',
       marginLeft: 5,
@@ -242,14 +242,14 @@ const styles = StyleSheet.create({
       margin: 10,
       color: '#2cd18a'
     },
-    infoDescriptionRecipe: {
+    infoDescriptionCategory: {
       color: 'black',
       fontWeight: 'bold',
       fontSize: 16,
       marginTop:5,
       textAlign:'center'
     },
-    infoRecipeName: {
+    infoCategoryName: {
       fontSize: 28,
       margin: 10,
       fontWeight: 'bold',
