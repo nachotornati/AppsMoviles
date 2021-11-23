@@ -10,14 +10,17 @@ import CategoryButton from '../Components/CategoryButton';
 export default class Category extends Component{
     constructor(props){
         super(props);
+        var fecha = new Date()
         this.state={
             id: this.props.id,
             item: this.props.item,
             navigation: this.props.navigation,
-            date: new Date(),
+            imgUri: "https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/"+ this.props.id + "/"+ this.props.item.path,
+            imgPath: "https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/"+ this.props.id + "/"+ this.props.item.path + '?time=' + fecha,
             token: this.props.token,
             visible: false
           }
+
     }
 
     setIsVisible(boolean){
@@ -74,7 +77,10 @@ export default class Category extends Component{
        .catch((e) => console.log(e))
        .done();
 
-       setTimeout(()=>{this.setState({date: new Date()})},2000)
+       let newImagePath = this.state.imgUri + '?time=' + new Date()
+
+       setTimeout(()=>{this.setState({imgPath: newImagePath})},2000)
+       console.log('nuevo path >>>>>>> ',this.state.itemPath)
   
   
       }
@@ -114,7 +120,9 @@ export default class Category extends Component{
         .then(response => response.text())
         .then(result => console.log(result))
         .catch(error => console.log('error', error));
-       setTimeout(()=>{this.setState({date: new Date()})},2000)
+
+      let newImagePath = this.state.imgUri + '?time=' + new Date()
+       setTimeout(()=>{this.setState({imgPath: newImagePath})},2000)
     }
 
 
@@ -124,10 +132,10 @@ export default class Category extends Component{
         <TouchableHighlight underlayColor="rgba(37, 150, 190,0.2)" onPress={() => this.onPressCategory(this.state.id,this.state.item.path, this.state.token)}>
         <View style={styles.categoriesItemContainer}>
         <ImageView images={[{
-          uri: "https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/"+ this.props.id + "/"+ this.props.item.path + '?time=' + new Date(),
+          uri: this.state.imgPath,
           headers: { Authorization: this.state.token }}]} imageIndex={0} visible={this.state.visible} onRequestClose={() => this.setIsVisible(false)} />
         <Image style={styles.categoriesPhoto} source={{
-          uri: "https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/"+ this.props.id + "/"+ this.props.item.path + '?time=' + new Date(),
+          uri: this.state.imgPath,
           headers: { Authorization: this.state.token }}} />
           <View style={styles.categoryNameContainer}>
           <CategoryButton uri={'upload'} onPress={()=>{ this.openLibrary()}}/>
