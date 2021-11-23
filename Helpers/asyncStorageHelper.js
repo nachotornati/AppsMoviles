@@ -21,7 +21,18 @@ const obtenerToken = async () => {
     }
 }
 
+const limpiarToken = async () => {
+        try {
+            await AsyncStorage.removeItem('@storage_token');
+            return true;
+        }
+        catch(exception) {
+            return false;
+        }
+}
+
 export default {
     guardarToken,
-    obtenerToken
+    obtenerToken,
+    limpiarToken
 }

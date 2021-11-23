@@ -29,7 +29,12 @@ export default function GoogleLogIn ({navigation}){
       }
       console.log(jwt)
       result = await fetch('https://modulo-backoffice.herokuapp.com/users/user/exists', https_options);
-      return result.status == 200
+      if (result.status == 200){
+        return true
+      }
+      else{
+        return false
+      }
     }
     catch (err){
       console.log(err)
@@ -64,15 +69,14 @@ export default function GoogleLogIn ({navigation}){
 
 
   <Background>
-
-      <Image source={require( '../assets/logo.png')} style={styles.image} />
-      <GoogleSigninButton
-              style={{ width: 192, height: 48 }}
-              size={GoogleSigninButton.Size.Wide}
-              color={GoogleSigninButton.Color.Dark}
-              onPress={signIn}
-              /*disabled={isSigninInProgress}*/
-            />
+    <Image source={require( '../assets/logo.png')} style={styles.image} />
+    <GoogleSigninButton
+            style={{ width: 192, height: 48 }}
+            size={GoogleSigninButton.Size.Wide}
+            color={GoogleSigninButton.Color.Dark}
+            onPress={signIn}
+            /*disabled={isSigninInProgress}*/
+    />
   </Background>
   )
 

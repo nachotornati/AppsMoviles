@@ -9,7 +9,7 @@ const SCREEN_WIDTH = width < height ? width : height;
 export function FamilyInfoCard(props) {
     //console.log(props)
     return(
-      <TouchableHighlight underlayColor="rgba(73,182,77,0.9)" onPress={()=>{ props.navigation.navigate("Family", { id:props.item._id })}}>
+      <TouchableHighlight underlayColor="rgba(37, 150, 190,0.2)" onPress={()=>{ props.navigation.navigate("Family", { id:props.item._id })}}>
       <View style={styles.categoriesItemContainer}>
             <Image style={styles.categoriesPhoto} source={{
           uri: "https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/"+ props.item._id + "/house_front_picture?time=" + new Date(),

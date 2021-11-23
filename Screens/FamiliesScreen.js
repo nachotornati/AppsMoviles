@@ -35,7 +35,7 @@ export default function FamiliesScreen ({ navigation }) {
       return (  <Icon size={30} onPress={() => { setModalVisible(true) }} name='filter' />)
     },
     headerLeft: () => {
-      return (  <Icon size={30} style={{marginRight:20}} onPress={() => {GoogleSignin.signOut();navigation.goBack()}} name='door-open' />)
+      return (  <Icon size={30} style={{marginRight:20}} onPress={() => {asyncStorageHelper.limpiarToken();GoogleSignin.signOut();navigation.goBack()}} name='door-open' />)
     },
   })
   
@@ -75,7 +75,7 @@ export default function FamiliesScreen ({ navigation }) {
     navigation.navigate("Family", { id:item._id });
   };*/
 
-  const renderRecipes = ({ item }) => (
+  const renderFamily = ({ item }) => (
       <FamilyInfoCard navigation={navigation} item={item} token={token}></FamilyInfoCard>
   );
 
@@ -97,7 +97,7 @@ export default function FamiliesScreen ({ navigation }) {
           </KeyboardAvoidingView>
         </View>
       </Modal>
-      <FlatList data={usuarios} renderItem={renderRecipes} keyExtractor={(item) => item._id} />
+      <FlatList data={usuarios} renderItem={renderFamily} keyExtractor={(item) => item._id} />
     </View>
   );
 };
