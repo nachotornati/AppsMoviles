@@ -12,7 +12,7 @@ const RECIPE_ITEM_HEIGHT = 150;
 const RECIPE_ITEM_MARGIN = 20;
 
 export function FamilyInfoCard(props) {
-    console.log(props)
+    //console.log(props)
     return(
       <TouchableHighlight underlayColor="rgba(73,182,77,0.9)" onPress={()=>{ props.navigation.navigate("Family", { id:props.item._id })}}>
       <View style={styles.categoriesItemContainer}>

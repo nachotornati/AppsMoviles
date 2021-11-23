@@ -3,6 +3,7 @@ import Background from '../Components/Background'
 import Logo from '../Components/Logo'
 import Header from '../Components/Header'
 import Paragraph from '../Components/Paragraph'
+import {Image, StyleSheet} from 'react-native'
 import { GoogleSignin, GoogleSigninButton, statusCodes} from '@react-native-google-signin/google-signin';
 import asyncStorageHelper from '../Helpers/asyncStorageHelper'
 
@@ -62,11 +63,7 @@ export default function GoogleLogIn ({navigation}){
 
   <Background>
 
-      <Logo />
-      <Header>Modulo Sanitario</Header>
-      <Paragraph>
-        Ayudar ayudando
-      </Paragraph>
+      <Image source={require( '../assets/logo.png')} style={styles.image} />
       <GoogleSigninButton
               style={{ width: 192, height: 48 }}
               size={GoogleSigninButton.Size.Wide}
@@ -78,3 +75,11 @@ export default function GoogleLogIn ({navigation}){
   )
 
 };
+
+const styles = StyleSheet.create({
+  image: {
+    width: 350,
+    height: 200,
+    marginBottom: 50,
+  },
+})
