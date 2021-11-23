@@ -84,7 +84,7 @@ export default function GoogleLogIn ({navigation}){
 
 const styles = StyleSheet.create({
   image: {
-    width: 350,
+    width: 310,
     height: 200,
     marginBottom: 50,
   },

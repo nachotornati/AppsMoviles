@@ -124,15 +124,13 @@ export default class Category extends Component{
         }
       };
       
-      fetch(url, requestOptions)
-        .then(response => response.text())
-        .then(result => console.log(result))
-        .catch(error => console.log('error', error));
+      var response = await fetch(url, requestOptions)
 
-       const jsonResponse = await response.json()
-       console.log(jsonResponse)
+      console.log("Hola")
+      const jsonResponse = await response.json()
+      console.log(jsonResponse)
 
-       if(!jsonResponse.error.flag){
+       if(jsonResponse.error.flag){
          Alert.alert("Hubo un error al eliminar la imagen. Intente de nuevo.")
        }
        else{
@@ -141,6 +139,7 @@ export default class Category extends Component{
        }
       }
       catch(error){
+        console.log(error)
         Alert.alert("Hubo un error al eliminar la imagen. Intente de nuevo.")
       }
     }
