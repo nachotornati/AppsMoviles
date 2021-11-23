@@ -84,7 +84,7 @@ export default function FamiliesScreen ({ navigation }) {
       <Modal animationType="slide" transparent={true} visible={modalVisible} onRequestClose={() => {setModalVisible(!modalVisible);}}>
         <View style={styles2.centeredView}>
           <KeyboardAvoidingView style={styles2.modalView}>
-            <Text style={styles2.modalText}>Filtros</Text>
+            <Icon size={30} name="window-minimize" style={{marginBottom: 200, textAlign: "center"}} onPress={()=>{setModalVisible(false)}}/>
             <TextInput style={styles2.textInput} type="text" onChangeText={(text) => setApellidoHolder(text)} value={apellidoHolder} placeholder={"Ingrese un apellido..."} />
             <TextInput style={styles2.textInput} type="text" onChangeText={(text) => setBarrioHolder(text)} value={barrioHolder} placeholder={"Ingrese un barrio..."} />
             <Pressable style={[styles2.button, styles2.buttonClose]} onPress={() => {
@@ -167,7 +167,7 @@ const styles2 = StyleSheet.create({
     width: 185
   },
   modalText: {
-    marginBottom: 15,
+    marginBottom: 200,
     textAlign: "center"
   }
 });

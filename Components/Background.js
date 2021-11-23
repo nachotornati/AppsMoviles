@@ -1,10 +1,40 @@
-import React from 'react'
 import { ImageBackground, StyleSheet, KeyboardAvoidingView } from 'react-native'
+import React, { useEffect, useState } from 'react';
 
 export default function Background({ children }) {
+
+  const [state, setState] = useState(0)
+
+  const images = [
+    require("../assets/background1.jpg"),
+    require("../assets/background2.jpg"),
+    require("../assets/background3.jpg"),
+    require("../assets/background4.jpg")
+  ];
+
+  var actualImage = images[Math.floor(Math.random()*images.length)];
+/*
+  const changeBackgroundImage = () => {
+    let newCurrentImg = 0;
+    const {images, currentImg} = state;
+    const noOfImages = images.length;
+
+    if (currentImg !== noOfImages - 1) {
+      newCurrentImg = currentImg + 1;
+    }
+
+    setState({currentImg: newCurrentImg});
+  }  
+
+  useEffect( () => {changeBackgroundImage()},
+    [state]
+  )
+
+  setInterval(() => this.changeBackgroundImage(), 1000);
+*/
   return (
     <ImageBackground
-      source={require('../assets/background.jpg')}
+      source={actualImage}
       resizeMode="cover"
       style={styles.background}
     >
