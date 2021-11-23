@@ -131,9 +131,9 @@ export default class Category extends Component{
           headers: { Authorization: this.state.token }}} />
           <View style={styles.categoryNameContainer}> 
           <Text style={styles.categoriesName}>{this.state.item.name.spanish}</Text>
-          <CategoryButton uri={'http://cdn.onlinewebfonts.com/svg/img_211436.png'} onPress={()=>{ this.openLibrary()}}/>
-          <CategoryButton uri={'http://cdn.onlinewebfonts.com/svg/img_292414.png'} onPress={()=>{ this.openCamera()}}/>
-          <CategoryButton title={'http://cdn.onlinewebfonts.com/svg/img_404379.png'} onPress={()=>{ this.showConfirmDialog()}}/>
+          <CategoryButton uri={'upload'} onPress={()=>{ this.openLibrary()}}/>
+          <CategoryButton uri={'camerao'} onPress={()=>{ this.openCamera()}}/>
+          <CategoryButton uri={'delete'} onPress={()=>{ this.showConfirmDialog()}}/>
           </View>
         </View>
       </TouchableHighlight>

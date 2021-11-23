@@ -1,11 +1,13 @@
 import { View, Button, StyleSheet, TouchableOpacity, Text, Image } from "react-native";
 import React from "react";
+import Icon from 'react-native-vector-icons/AntDesign';
 
 export default function AppButton  ({uri, onPress}) {
-    
+  console.log("Uri que llega")
   return(
     <TouchableOpacity onPress={onPress} style={styles.appButtonContainer}>
-      <Image style={{width:30, height:30}}source={{uri:uri}}></Image>
+      <Icon size={20} color="#FFF" name={uri}/>
+      
     </TouchableOpacity>
   );
 }

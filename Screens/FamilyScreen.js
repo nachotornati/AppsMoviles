@@ -5,6 +5,7 @@ import AppButton from '../Components/AppButton';
 import { FamilyInfoCard } from '../Components/FamilyInfoCard';
 import asyncStorageHelper from '../Helpers/asyncStorageHelper';
 import Category from '../Components/Category';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 //Hay que hacer un fetch para traer categoria de fotos y otro para traer datos de la familia
 

@@ -18,10 +18,10 @@ function MyStack() {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Iniciar Sesion" options={{headerShown: false}} component={GoogleLogIn} />
-      <Stack.Screen name="Families" component={FamiliesScreen} />
-      <Stack.Screen name="Family" component={FamilyScreen} />
-      <Stack.Screen name="Image" component= {ImageScreen} />
-      <Stack.Screen name="Map" component={MapScreen} />
+      <Stack.Screen name="Families" component={FamiliesScreen} options={{ title: 'Familias' }} />
+      <Stack.Screen name="Family" component={FamilyScreen} options={{ title: 'Familia' }} />
+      <Stack.Screen name="Image" component= {ImageScreen} options={{ title: 'Imagen' }} />
+      <Stack.Screen name="Map" component={MapScreen} options={{ title: 'Mapa' }} />
     </Stack.Navigator>
   );
 }

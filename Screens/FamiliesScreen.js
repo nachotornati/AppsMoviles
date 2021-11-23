@@ -1,12 +1,15 @@
 import { FamilyInfoCard } from '../Components/FamilyInfoCard';
 import React, { useEffect, useState ,useLayoutEffect} from 'react';
-import { Button, View, StyleSheet, StatusBar, Text, FlatList, TouchableHighlight, Image, Modal, Pressable, Alert, RefreshControlBase} from 'react-native';
+import { Button, View, StyleSheet, StatusBar, Text, FlatList, TouchableHighlight, Image, Modal, Pressable, Alert, RefreshControlBase, KeyboardAvoidingView} from 'react-native';
 import { Dimensions } from 'react-native';
 import Background from '../Components/Background';
 import asyncStorageHelper from '../Helpers/asyncStorageHelper'
 import { SearchBar } from 'react-native-elements';
 import { TextInput } from 'react-native-paper';
+//import * as AntDesign from 'react-native-vector-icons/AntDesign';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
+import { GoogleSignin, GoogleSigninButton, statusCodes} from '@react-native-google-signin/google-signin';
 
 const { width, height } = Dimensions.get('window');
 // orientation must fixed
@@ -29,17 +32,21 @@ export default function FamiliesScreen ({ navigation }) {
   useEffect( () => {
     console.log('useEffect')
     obtenerDatos()
-  }, [])
+  }, [apellido, barrio])
 
 
   navigation.setOptions({
     headerRight: () => {
-      return ( <Image style={{width: 30, height: 30}} source={{uri: '../assets/filter.png'}}></Image>)
+      return (  <Icon size={30} onPress={() => { setModalVisible(true) }} name='filter' />)
     },
-    headerRight: () => (<View>
-      <Text onPress={() => setModalVisible(true)}>Filtrar</Text>
-      <Text>Cerrar Sesión</Text></View>),
-  });
+    headerLeft: () => {
+      return (  <Icon size={30} style={{marginRight:20}} onPress={() => {GoogleSignin.signOut();navigation.goBack()}} name='door-open' />)
+    },
+  })
+  
+  /*headerRight: () => (<View>
+    <Text onPress={() => setModalVisible(true)}>Filtrar</Text>
+    <Text>Cerrar Sesión</Text></View>),*/
 
   const obtenerDatos = async () => {
     jwt = await asyncStorageHelper.obtenerToken()
@@ -53,11 +60,11 @@ export default function FamiliesScreen ({ navigation }) {
     url = "http://modulo-backoffice.herokuapp.com/families/obtain-families"
 
     if(apellido){
-      url += "?apellido="+apellidoHolder
+      url += "?apellido="+apellido
     }
     
     if(barrio){
-      url += "?barrio="+barrioHolder
+      url += "?barrio="+barrio
     }
 
     console.log(url)
@@ -78,16 +85,20 @@ export default function FamiliesScreen ({ navigation }) {
 
   return (
     <View>
-      <Modal animationType="slide" transparent={true} visible={modalVisible} onRequestClose={() => {Alert.alert("Modal has been closed."); setModalVisible(!modalVisible);}}>
+      <Modal animationType="slide" transparent={true} visible={modalVisible} onRequestClose={() => {setModalVisible(!modalVisible);}}>
         <View style={styles2.centeredView}>
-          <View style={styles2.modalView}>
+          <KeyboardAvoidingView style={styles2.modalView}>
             <Text style={styles2.modalText}>Filtros</Text>
             <TextInput style={styles2.textInput} type="text" onChangeText={(text) => setApellidoHolder(text)} value={apellidoHolder} placeholder={"Ingrese un apellido..."} />
             <TextInput style={styles2.textInput} type="text" onChangeText={(text) => setBarrioHolder(text)} value={barrioHolder} placeholder={"Ingrese un barrio..."} />
-            <Pressable style={[styles2.button, styles2.buttonClose]} onPress={() => {setModalVisible(!modalVisible)}}>
-              <Text style={styles2.textStyle}>Cerrar</Text>
+            <Pressable style={[styles2.button, styles2.buttonClose]} onPress={() => {
+                setApellido(apellidoHolder)
+                setBarrio(barrioHolder)
+                setModalVisible(!modalVisible)
+                }}>
+              <Text style={styles2.textStyle}>Filtrar</Text>
             </Pressable>
-          </View>
+          </KeyboardAvoidingView>
         </View>
       </Modal>
       <FlatList data={usuarios} renderItem={renderRecipes} keyExtractor={(item) => item._id} />
@@ -156,8 +167,8 @@ const styles2 = StyleSheet.create({
       width: 0,
       height: 2
     },
-    width:300,
-    height:300,
+    width:width,
+    height:height,
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5
