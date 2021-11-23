@@ -129,19 +129,22 @@ export default class Category extends Component{
         <Image style={styles.categoriesPhoto} source={{
           uri: "https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/"+ this.props.id + "/"+ this.props.item.path + '?time=' + new Date(),
           headers: { Authorization: this.state.token }}} />
-          <View style={styles.categoryNameContainer}> 
-          <Text style={styles.categoriesName}>{this.state.item.name.spanish}</Text>
+          <View style={styles.categoryNameContainer}>
           <CategoryButton uri={'upload'} onPress={()=>{ this.openLibrary()}}/>
           <CategoryButton uri={'camerao'} onPress={()=>{ this.openCamera()}}/>
           <CategoryButton uri={'delete'} onPress={()=>{ this.showConfirmDialog()}}/>
           </View>
+                  <Text style={styles.categoriesName}>{this.state.item.name.spanish}</Text>
         </View>
+        
       </TouchableHighlight>
 
         );
     }
 
 }
+
+
 
 const styles = StyleSheet.create({
     container: {
@@ -159,7 +162,7 @@ const styles = StyleSheet.create({
       margin: 10,
       justifyContent: 'center',
       alignItems: 'center',
-      height:240,
+      height:300,
       borderColor: '#cccccc',
       borderWidth: 0.5,
       borderRadius: 20,
@@ -192,6 +195,7 @@ const styles = StyleSheet.create({
     },
     categoriesName: {
       flex: 1,
+
       fontSize: 20,
       fontWeight: 'bold',
       marginTop:7,

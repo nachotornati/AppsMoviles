@@ -1,6 +1,6 @@
 import { FamilyInfoCard } from '../Components/FamilyInfoCard';
-import React, { useEffect, useState ,useLayoutEffect} from 'react';
-import { Button, View, StyleSheet, StatusBar, Text, FlatList, TouchableHighlight, Image, Modal, Pressable, Alert, RefreshControlBase, KeyboardAvoidingView} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { Button, View, StyleSheet, Text, FlatList, Modal, Pressable, KeyboardAvoidingView} from 'react-native';
 import { Dimensions } from 'react-native';
 import Background from '../Components/Background';
 import asyncStorageHelper from '../Helpers/asyncStorageHelper'
@@ -57,6 +57,7 @@ export default function FamiliesScreen ({ navigation }) {
         'Authorization': jwt
       })
     }
+
     url = "http://modulo-backoffice.herokuapp.com/families/obtain-families"
 
     if(apellido){

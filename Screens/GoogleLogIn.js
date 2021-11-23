@@ -43,6 +43,8 @@ export default function GoogleLogIn ({navigation}){
       const userInfo = await GoogleSignin.signIn();
       jwt = userInfo.idToken
 
+      console.log("Puede pasar a la app: ", isAllowToLog(jwt))
+
       if (await isAllowToLog(jwt)){
         await asyncStorageHelper.guardarToken(jwt)
         navigation.navigate('Families')
