@@ -65,18 +65,23 @@ export default class Category extends Component{
         console.log('LINK FOTO')
         let body = new FormData();
         body.append('upload', {uri: imagePath,name: 'photo.jpg',filename :'imageTest45.jpg',type: 'image/jpg'});
-        fetch(url,{ method: 'POST',headers:{  
+        const response = await fetch(url,{ method: 'POST',headers:{  
           "Content-Type": "multipart/form-data",
           "otherHeader": "foo",
           "Authentication": this.state.token
         } , body :body} )
-       .then((res) => { console.log("response " +res) } ) 
-       .catch((e) => console.log(e))
-       .done();
 
-       setTimeout(()=>{this.setState({date: new Date()})},2000)
-  
-  
+        const jsonResponse = await response.json()
+
+        console.log(jsonResponse)
+
+        if(!jsonResponse.error.flag){
+          alert(jsonResponse.error.message.spanish)
+        }
+        else{
+          this.setState({date: new Date()})
+        }
+
       }
 
     showConfirmDialog = () => {
