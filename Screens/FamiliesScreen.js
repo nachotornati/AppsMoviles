@@ -2,9 +2,7 @@ import { FamilyInfoCard } from '../Components/FamilyInfoCard';
 import React, { useEffect, useState } from 'react';
 import { Button, View, StyleSheet, Text, FlatList, Modal, Pressable, KeyboardAvoidingView} from 'react-native';
 import { Dimensions } from 'react-native';
-import Background from '../Components/Background';
 import asyncStorageHelper from '../Helpers/asyncStorageHelper'
-import { SearchBar } from 'react-native-elements';
 import { TextInput } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 

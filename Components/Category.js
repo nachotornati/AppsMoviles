@@ -5,19 +5,22 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {Button} from 'react-native-paper'
 import ImageView from "react-native-image-viewing";
 import CategoryButton from '../Components/CategoryButton';
-
+import { set } from "react-native-reanimated";
 
 export default class Category extends Component{
     constructor(props){
         super(props);
+        var fecha = new Date()
         this.state={
             id: this.props.id,
             item: this.props.item,
             navigation: this.props.navigation,
-            date: new Date(),
+            imgUri: "https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/"+ this.props.id + "/"+ this.props.item.path,
+            imgPath: "https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/"+ this.props.id + "/"+ this.props.item.path + '?time=' + fecha,
             token: this.props.token,
             visible: false
           }
+
     }
 
     setIsVisible(boolean){
@@ -60,6 +63,7 @@ export default class Category extends Component{
       }
 
      async uploadPictureToServer(imagePath){ // change url
+      try{
         console.log('upload method ' + this.state.id + this.state.item.path)
         let url = 'https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/' + this.state.id  + '/' +  this.state.item.path
         console.log('LINK FOTO')
@@ -72,16 +76,20 @@ export default class Category extends Component{
         } , body :body} )
 
         const jsonResponse = await response.json()
-
         console.log(jsonResponse)
-
-        if(!jsonResponse.error.flag){
-          alert(jsonResponse.error.message.spanish)
+        if(jsonResponse.error.flag){
+          Alert.alert("Hubo un error al subir la imagen. Intente de nuevo.")
         }
         else{
-          this.setState({date: new Date()})
+          setTimeout(()=>{
+            this.setState({imgPath: this.state.imgUri + '?time=' + new Date()})
+            console.log('nuevo path >>>>>>> ',this.state.imgPath)}, 2000)
         }
-
+      }
+      catch(error){
+        Alert.alert("Hubo un error al subir la imagen. Intente de nuevo.")
+      }
+  
       }
 
     showConfirmDialog = () => {
@@ -105,7 +113,8 @@ export default class Category extends Component{
         );
       };
 
-    deletePicture(){
+    async deletePicture(){
+      try{
       let url = 'https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/' + this.state.id  + '/' +  this.state.item.path
       var requestOptions = {
         method: 'DELETE',
@@ -119,7 +128,21 @@ export default class Category extends Component{
         .then(response => response.text())
         .then(result => console.log(result))
         .catch(error => console.log('error', error));
-       setTimeout(()=>{this.setState({date: new Date()})},2000)
+
+       const jsonResponse = await response.json()
+       console.log(jsonResponse)
+
+       if(!jsonResponse.error.flag){
+         Alert.alert("Hubo un error al eliminar la imagen. Intente de nuevo.")
+       }
+       else{
+        let newImagePath = this.state.imgUri + '?time=' + new Date()
+         setTimeout(()=>{this.setState({imgPath: newImagePath})}, 2000)
+       }
+      }
+      catch(error){
+        Alert.alert("Hubo un error al eliminar la imagen. Intente de nuevo.")
+      }
     }
 
 
@@ -129,10 +152,10 @@ export default class Category extends Component{
         <TouchableHighlight underlayColor="rgba(37, 150, 190,0.2)" onPress={() => this.onPressCategory(this.state.id,this.state.item.path, this.state.token)}>
         <View style={styles.categoriesItemContainer}>
         <ImageView images={[{
-          uri: "https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/"+ this.props.id + "/"+ this.props.item.path + '?time=' + new Date(),
+          uri: this.state.imgPath,
           headers: { Authorization: this.state.token }}]} imageIndex={0} visible={this.state.visible} onRequestClose={() => this.setIsVisible(false)} />
         <Image style={styles.categoriesPhoto} source={{
-          uri: "https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/"+ this.props.id + "/"+ this.props.item.path + '?time=' + new Date(),
+          uri: this.state.imgPath,
           headers: { Authorization: this.state.token }}} />
           <View style={styles.categoryNameContainer}>
           <CategoryButton uri={'upload'} onPress={()=>{ this.openLibrary()}}/>
