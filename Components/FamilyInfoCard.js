@@ -7,14 +7,14 @@ const { width, height } = Dimensions.get('window');
 const SCREEN_WIDTH = width < height ? width : height;
 
 export function FamilyInfoCard(props) {
-    //console.log(props)
+    console.log(props.item.encuestaUno.direccion)
     return(
       <TouchableHighlight underlayColor="rgba(37, 150, 190,0.2)" onPress={()=>{ props.navigation.navigate("Family", { id:props.item._id })}}>
       <View style={styles.categoriesItemContainer}>
           <Text style={styles.categoriesName}>Familia {props.item.apellido}</Text>
-          <Text style={styles.categoriesName}>Familia {props.item.apellido}</Text>
-          <Text style={styles.categoriesName}>Familia {props.item.apellido}</Text>
-          <Text style={styles.categoriesName}>{props.item.estado}</Text>
+          <Text style={styles.categoriesName}>Barrio: {props.item.encuestaUno.direccion.barrio}</Text>
+          <Text style={styles.categoriesName}>Partido: {props.item.encuestaUno.direccion.partido}</Text>
+          <Text style={styles.categoriesName}>Provincia: {props.item.encuestaUno.direccion.provincia}</Text>
       </View>
       </TouchableHighlight>
     );

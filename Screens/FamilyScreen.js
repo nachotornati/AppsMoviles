@@ -26,12 +26,19 @@ export default function FamilyScreen({ navigation, route }) {
       }
 
       const data = await fetch("http://modulo-backoffice.herokuapp.com/families/x-test-obtain-resumed-family/"+ id)
-      const dataCategories = await fetch("https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/categories", https_options_back)
+      const dataCategories = await fetch("https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/ordered/categories/"+id, https_options_back)
+
       const response = await data.json()
       const responseCategories = await dataCategories.json()
       
+
+
       setInformation(response)
-      console.log(response)
+      console.log(responseCategories)
+
+      responseCategories.categories.sort((A,B)=>{ return !A.flag })
+
+
       setCategories(responseCategories)
       setLoading(false)
       
