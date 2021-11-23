@@ -11,12 +11,10 @@ export function FamilyInfoCard(props) {
     return(
       <TouchableHighlight underlayColor="rgba(37, 150, 190,0.2)" onPress={()=>{ props.navigation.navigate("Family", { id:props.item._id })}}>
       <View style={styles.categoriesItemContainer}>
-            <Image style={styles.categoriesPhoto} source={{
-          uri: "https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/"+ props.item._id + "/house_front_picture?time=" + new Date(),
-          headers: { Authorization: props.token }}} />
-          <View style={styles.categoryNameContainer}> 
-          <Text style={styles.categoriesName}>{props.item.apellido}</Text>
-          </View>
+          <Text style={styles.categoriesName}>Familia {props.item.apellido}</Text>
+          <Text style={styles.categoriesName}>Familia {props.item.apellido}</Text>
+          <Text style={styles.categoriesName}>Familia {props.item.apellido}</Text>
+          <Text style={styles.categoriesName}>{props.item.estado}</Text>
       </View>
       </TouchableHighlight>
     );
@@ -35,10 +33,11 @@ const styles = StyleSheet.create({
     color: '#FFF',
   },
   categoriesItemContainer: {
-    margin: 10,
+    marginHorizontal: 40,
+    marginVertical:10,
     justifyContent: 'center',
     alignItems: 'center',
-    height:240,
+    height:200,
     borderColor: '#cccccc',
     borderWidth: 0.5,
     borderRadius: 20,

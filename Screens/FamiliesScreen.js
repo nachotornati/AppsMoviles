@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, View, StyleSheet, Text, FlatList, Modal, Pressable, KeyboardAvoidingView} from 'react-native';
 import { Dimensions } from 'react-native';
 import asyncStorageHelper from '../Helpers/asyncStorageHelper'
-import { TextInput } from 'react-native-paper';
+import { TextInput, Title } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import { GoogleSignin} from '@react-native-google-signin/google-signin';
@@ -83,6 +83,7 @@ export default function FamiliesScreen ({ navigation }) {
         <View style={styles2.centeredView}>
           <KeyboardAvoidingView style={styles2.modalView}>
             <Icon size={30} name="window-minimize" style={{marginBottom: 200, textAlign: "center"}} onPress={()=>{setModalVisible(false)}}/>
+            <Title style={{marginBottom:15}}>Filtros</Title>
             <TextInput style={styles2.textInput} type="text" onChangeText={(text) => setApellidoHolder(text)} value={apellidoHolder} placeholder={"Ingrese un apellido..."} />
             <TextInput style={styles2.textInput} type="text" onChangeText={(text) => setBarrioHolder(text)} value={barrioHolder} placeholder={"Ingrese un barrio..."} />
             <Pressable style={[styles2.button, styles2.buttonClose]} onPress={() => {
@@ -91,6 +92,15 @@ export default function FamiliesScreen ({ navigation }) {
                 setModalVisible(!modalVisible)
                 }}>
               <Text style={styles2.textStyle}>Filtrar</Text>
+            </Pressable>
+            <Pressable style={[styles2.buttonBorrar, styles2.buttonClose]} onPress={() => {
+                setBarrioHolder('')
+                setApellidoHolder('')
+                setApellido('')
+                setBarrio('')
+                setModalVisible(!modalVisible)
+                }}>
+              <Text style={styles2.textStyle}>Borrar</Text>
             </Pressable>
           </KeyboardAvoidingView>
         </View>
@@ -118,6 +128,12 @@ const styles = StyleSheet.create({
 });
 
 const styles2 = StyleSheet.create({
+  buttonBorrar:{
+    marginTop:10,
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
   textInput: {
     height:50,
     width:200,
