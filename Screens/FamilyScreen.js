@@ -6,6 +6,8 @@ import { FamilyInfoCard } from '../Components/FamilyInfoCard';
 import asyncStorageHelper from '../Helpers/asyncStorageHelper';
 import Category from '../Components/Category';
 import Icon from 'react-native-vector-icons/AntDesign';
+import { LogBox } from 'react-native';
+LogBox.ignoreAllLogs();
 
 //Hay que hacer un fetch para traer categoria de fotos y otro para traer datos de la familia
 
@@ -14,7 +16,15 @@ export default function FamilyScreen({ navigation, route }) {
     const [ categories, setCategories ] = useState({});
     const [ token, setToken ] = useState('');
     const [loading, setLoading] = useState(true);
+    const [refresh, setRefresh] = useState(0);
     const  id  = route.params.id;
+
+
+    navigation.setOptions({
+      headerRight: () => {
+        return (  <Icon size={30} onPress={() => { setModalVisible(true) }} name='reload1' onPress={ () => {setRefresh(refresh+1)} } />)
+      }
+    })
 
     const obtenerDatos = async () => {
       jwt = await asyncStorageHelper.obtenerToken()
@@ -25,7 +35,7 @@ export default function FamilyScreen({ navigation, route }) {
         headers: { 'Authorization': jwt }
       }
 
-      const data = await fetch("http://modulo-backoffice.herokuapp.com/families/x-test-obtain-resumed-family/"+ id)
+      const data = await fetch("http://modulo-backoffice.herokuapp.com/families/obtain-resumed-family/"+ id, https_options_back)
       const dataCategories = await fetch("https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/ordered/categories/"+id, https_options_back)
 
       const response = await data.json()
@@ -46,7 +56,7 @@ export default function FamilyScreen({ navigation, route }) {
 
     useEffect( () => {
       obtenerDatos()
-    }, [navigation])
+    }, [navigation, refresh])
 
     
     //<Text style={styles.categoriesInfo}>{getNumberOfPhotos(item.id)} photos</Text>

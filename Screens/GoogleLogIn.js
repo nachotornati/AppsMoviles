@@ -6,7 +6,8 @@ import Paragraph from '../Components/Paragraph'
 import {Image, StyleSheet} from 'react-native'
 import { GoogleSignin, GoogleSigninButton, statusCodes} from '@react-native-google-signin/google-signin';
 import asyncStorageHelper from '../Helpers/asyncStorageHelper'
-
+import { LogBox } from 'react-native';
+LogBox.ignoreAllLogs();
 
 export default function GoogleLogIn ({navigation}){
 

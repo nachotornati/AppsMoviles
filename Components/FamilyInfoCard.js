@@ -1,13 +1,16 @@
 import { familyInfoCardStyle } from '../Styles/FamilyInfoCardStyle';
 import React from 'react';
-import { Text, View, Image, StyleSheet,Dimensions,TouchableHighlight} from 'react-native';
+import { Text, View, Image, StyleSheet,Dimensions,TouchableHighlight, LogBox } from 'react-native';
+
+/*
+LogBox.ignoreWarnings(["Require cycle:"]);
+*/
 
 const { width, height } = Dimensions.get('window');
 // orientation must fixed
 const SCREEN_WIDTH = width < height ? width : height;
 
 export function FamilyInfoCard(props) {
-    console.log(props.item.encuestaUno.direccion)
     return(
       <TouchableHighlight underlayColor="rgba(37, 150, 190,0.2)" onPress={()=>{ props.navigation.navigate("Family", { id:props.item._id })}}>
       <View style={styles.categoriesItemContainer}>

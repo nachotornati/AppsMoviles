@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Button, View, StyleSheet, StatusBar, Text, FlatList, TouchableHighlight, Image, Alert} from 'react-native';
-
 import PhotoMap from '../Components/PhotoMap';
+import { LogBox } from 'react-native';
+LogBox.ignoreAllLogs();
 
 export default function MapScreen ({navigation,route}){
 
@@ -21,8 +22,6 @@ export default function MapScreen ({navigation,route}){
       if (response.error.flag){
           Alert.alert(response.error.message.spanish)
           navigation.goBack()
-          
-
       }
       else{
 

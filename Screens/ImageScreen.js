@@ -3,7 +3,8 @@ import { Button, View, StyleSheet, StatusBar, Text, FlatList, TouchableHighlight
 //Hay que hacer un fetch para traer categoria de fotos y otro para traer datos de la familia
 import Gallery from 'react-native-image-gallery';
 import ImageView from "react-native-image-viewing";
-
+import { LogBox } from 'react-native';
+LogBox.ignoreWarnings = ["Require cycle:", "Warning:"];
 
 export default function ImageScreen({navigation,route}) {
   console.log(route);

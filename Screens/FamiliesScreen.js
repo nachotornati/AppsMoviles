@@ -1,12 +1,15 @@
 import { FamilyInfoCard } from '../Components/FamilyInfoCard';
 import React, { useEffect, useState } from 'react';
-import { Button, View, StyleSheet, Text, FlatList, Modal, Pressable, KeyboardAvoidingView} from 'react-native';
+import { Button, View, StyleSheet, Text, FlatList, Modal, Pressable, KeyboardAvoidingView, ActivityIndicator} from 'react-native';
 import { Dimensions } from 'react-native';
 import asyncStorageHelper from '../Helpers/asyncStorageHelper'
 import { TextInput, Title } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import { GoogleSignin} from '@react-native-google-signin/google-signin';
+
+import { LogBox } from 'react-native';
+LogBox.ignoreAllLogs();
 
 const { width, height } = Dimensions.get('window');
 const SCREEN_WIDTH = width < height ? width : height;
@@ -17,6 +20,7 @@ export default function FamiliesScreen ({ navigation }) {
   const [token, setToken] = useState();
   const [apellido, setApellido] = useState('');
   const [barrio, setBarrio] = useState('');
+  const [loading, setLoading] = useState(true);
   const [apellidoHolder, setApellidoHolder] = useState('');
   const [barrioHolder, setBarrioHolder] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
@@ -66,6 +70,7 @@ export default function FamiliesScreen ({ navigation }) {
     const users = await data.json()
     setUsuarios(users.results)
     setToken(jwt)
+    setLoading(false)
   }
 
   /*
@@ -105,7 +110,40 @@ export default function FamiliesScreen ({ navigation }) {
           </KeyboardAvoidingView>
         </View>
       </Modal>
-      <FlatList data={usuarios} renderItem={renderFamily} keyExtractor={(item) => item._id} />
+
+
+      {loading ? (
+          <ActivityIndicator
+            //visibility of Overlay Loading Spinner
+            visible={loading}
+            //Text with the Spinner
+            textContent={'Loading...'}
+            //Text style of the Spinner Text
+            textStyle={styles.spinnerTextStyle}
+          />
+        ) : (
+
+          <FlatList data={usuarios} ListEmptyComponent={
+      
+      
+            <View style={{
+              height: height,
+              width: width,
+              backgroundColor:"transparent",
+              alignItems: "center"
+            }}>
+              <Icon name="exclamation-circle" size={100} style={{marginTop:250}} color="#A00"/>
+              <Text style={{
+                textAlign: "center",
+                marginTop: 20
+              }}>No hay familias que coincidan con los parametros de búsqueda</Text>
+            </View>
+          
+          
+          } renderItem={renderFamily} keyExtractor={(item) => item._id} />
+
+        )}
+
     </View>
   );
 };
