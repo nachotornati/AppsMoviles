@@ -119,7 +119,11 @@ export default function FamiliesScreen ({ navigation }) {
             //Text with the Spinner
             textContent={'Loading...'}
             //Text style of the Spinner Text
-            textStyle={styles.spinnerTextStyle}
+            size="large" color="#0000ff"
+            style={{
+              height:height-50,
+              width:width,
+            }}
           />
         ) : (
 

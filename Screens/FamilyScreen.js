@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, View, StyleSheet, StatusBar, Text, FlatList, TouchableHighlight, Image, Alert, SafeAreaView, ActivityIndicator} from 'react-native';
+import { Button, View, StyleSheet, StatusBar, Dimensions, Text, FlatList, TouchableHighlight, Image, Alert, SafeAreaView, ActivityIndicator} from 'react-native';
 import { Modal } from 'react-native-paper';
 import AppButton from '../Components/AppButton';
 import { FamilyInfoCard } from '../Components/FamilyInfoCard';
@@ -10,6 +10,8 @@ import { LogBox } from 'react-native';
 LogBox.ignoreAllLogs();
 
 //Hay que hacer un fetch para traer categoria de fotos y otro para traer datos de la familia
+const { width, height } = Dimensions.get('window');
+const SCREEN_WIDTH = width < height ? width : height;
 
 export default function FamilyScreen({ navigation, route }) {
     const [ information, setInformation ] = useState({});
@@ -69,12 +71,18 @@ export default function FamilyScreen({ navigation, route }) {
     <SafeAreaView style={{flex: 1}}>
       {loading ? (
           <ActivityIndicator
+            size="large" color="#0000ff"
             //visibility of Overlay Loading Spinner
             visible={loading}
             //Text with the Spinner
             textContent={'Loading...'}
             //Text style of the Spinner Text
-            textStyle={styles.spinnerTextStyle}
+            style={{
+              height:height-50,
+              width:width,
+            }}
+
+
           />
         ) : (
 
