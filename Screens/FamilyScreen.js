@@ -89,9 +89,9 @@ export default function FamilyScreen({ navigation, route }) {
           <FlatList ListHeaderComponent={
               
             <View style={styles.familyInfoContainer}>
-            <Text style={styles.infoRecipeName} >{'Familia ' + information.apellido}</Text>
+            <Text style={styles.infoFamilyName} >{'Familia ' + information.apellido}</Text>
               <View style={{marginBottom:10}}>
-                <Text style={styles.infoDescriptionRecipe} >{information.estado}</Text>
+                <Text style={styles.infoDescriptionFamily} >{information.estado}</Text>
               </View>
             <AppButton title={'Ver mapa'} onPress={()=>{navigation.navigate('Map',id)}}/>
     
@@ -190,7 +190,7 @@ export default function FamilyScreen({ navigation, route }) {
 
     },
  
-    infoRecipe: {
+    infoFamily: {
       fontSize: 14,
       fontWeight: 'bold',
       marginLeft: 5,
@@ -201,14 +201,14 @@ export default function FamilyScreen({ navigation, route }) {
       margin: 10,
       color: '#2cd18a'
     },
-    infoDescriptionRecipe: {
+    infoDescriptionFamily: {
       color: 'black',
       fontWeight: 'bold',
       fontSize: 16,
       marginTop:5,
       textAlign:'center'
     },
-    infoRecipeName: {
+    infoFamilyName: {
       fontSize: 28,
       margin: 10,
       fontWeight: 'bold',
