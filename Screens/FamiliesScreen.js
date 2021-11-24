@@ -55,14 +55,14 @@ export default function FamiliesScreen ({ navigation }) {
       })
     }
 
-    url = "http://modulo-backoffice.herokuapp.com/families/obtain-families"
+    url = "http://modulo-backoffice.herokuapp.com/families/obtain-families?"
 
     if(apellido){
-      url += "?apellido="+apellido
+      url += "apellido="+apellido+"&"
     }
     
     if(barrio){
-      url += "?barrio="+barrio
+      url += "barrio="+barrio+"&"
     }
 
     console.log(url)
