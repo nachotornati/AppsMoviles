@@ -152,23 +152,6 @@ export default function FamiliesScreen ({ navigation }) {
   );
 };
 
-const styles = StyleSheet.create({
-  title: {
-    flex: 1,
-    fontSize: 17,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: '#444444',
-    marginTop: 3,
-    marginRight: 5,
-    marginLeft: 5,
-  },
-  category: {
-    marginTop: 5,
-    marginBottom: 5
-  }
-});
-
 const styles2 = StyleSheet.create({
   buttonBorrar:{
     marginTop:10,
@@ -210,9 +193,6 @@ const styles2 = StyleSheet.create({
     padding: 10,
     elevation: 2
   },
-  buttonOpen: {
-    backgroundColor: "#F194FF",
-  },
   buttonClose: {
     backgroundColor: "#2196F3",
   },
@@ -222,8 +202,4 @@ const styles2 = StyleSheet.create({
     textAlign: "center",
     width: 185
   },
-  modalText: {
-    marginBottom: 200,
-    textAlign: "center"
-  }
 });
