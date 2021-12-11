@@ -1,6 +1,6 @@
 import { FamilyInfoCard } from '../Components/FamilyInfoCard';
 import React, { useEffect, useState } from 'react';
-import { Button, View, StyleSheet, Text, FlatList, Modal, Pressable, KeyboardAvoidingView, ActivityIndicator} from 'react-native';
+import { Button, View, StyleSheet, Text, FlatList, Modal, Pressable, KeyboardAvoidingView, ActivityIndicator, Animated, PanResponder} from 'react-native';
 import { Dimensions } from 'react-native';
 import asyncStorageHelper from '../Helpers/asyncStorageHelper'
 import { TextInput, Title } from 'react-native-paper';
@@ -24,6 +24,20 @@ export default function FamiliesScreen ({ navigation }) {
   const [apellidoHolder, setApellidoHolder] = useState('');
   const [barrioHolder, setBarrioHolder] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
+  const [pageNum, setpageNum] = useState(1);
+  const [pan, setPan] = useState(new Animated.ValueXY());
+  const [panResponder, setPanResponder] = useState(PanResponder.create({
+    onStartShouldSetPanResponder: () => true,
+    onPanResponderEnd: () => true,
+    onMoveShouldSetPanResponder: () => true,
+    onPanResponderGrant: () => true,                      
+    onPanResponderRelease: (e, gesto) => true,
+    onPanResponderMove: (e, gesto) => {
+        if(gesto.dy >= 90){
+            setTimeout(() => {setModalVisible(false)});
+        }
+    }                     
+}));
 
 
   useEffect( () => {
@@ -55,7 +69,7 @@ export default function FamiliesScreen ({ navigation }) {
       })
     }
 
-    url = "http://modulo-backoffice.herokuapp.com/families/obtain-families?"
+    url = "http://modulo-backoffice.herokuapp.com/families/obtain-families?limit=4&page=" + 1;
 
     if(apellido){
       url += "apellido="+apellido+"&"
@@ -82,9 +96,42 @@ export default function FamiliesScreen ({ navigation }) {
       <FamilyInfoCard navigation={navigation} item={item} token={token}></FamilyInfoCard>
   );
 
+  const fetchMoreFamilies = async ()=>{
+    jwt = await asyncStorageHelper.obtenerToken()
+    console.log('ENTRE AL FETCH MORE')
+    https_options = { 
+      method: 'get', 
+      headers: new Headers({
+        'Authorization': jwt
+      })
+    }
+
+    setpageNum(pageNum+1);
+    url = "http://modulo-backoffice.herokuapp.com/families/obtain-families?limit=4&page=" + (pageNum)+'&';
+
+    if(apellido){
+      url += "apellido="+apellido+"&"
+    }
+    
+    if(barrio){
+      url += "barrio="+barrio+"&"
+    }
+
+
+    
+    const data = await fetch(url, https_options);
+    const users = await data.json();
+    if(users.results.length != 0){
+      setUsuarios([...usuarios,...users.results])
+    }
+    
+  }
+
   return (
     <View>
+      
       <Modal animationType="slide" transparent={true} visible={modalVisible} onRequestClose={() => {setModalVisible(!modalVisible);}}>
+      <Animated.View style = {{ flex: 1, justifyContent: "center", alignItems: "center"}} {...panResponder.panHandlers}>
         <View style={styles2.centeredView}>
           <KeyboardAvoidingView style={styles2.modalView}>
             <Icon size={30} name="window-minimize" style={{marginBottom: 200, textAlign: "center"}} onPress={()=>{setModalVisible(false)}}/>
@@ -95,6 +142,7 @@ export default function FamiliesScreen ({ navigation }) {
                 setApellido(apellidoHolder)
                 setBarrio(barrioHolder)
                 setModalVisible(!modalVisible)
+                setUsuarios([]);
                 }}>
               <Text style={styles2.textStyle}>Filtrar</Text>
             </Pressable>
@@ -109,6 +157,7 @@ export default function FamiliesScreen ({ navigation }) {
             </Pressable>
           </KeyboardAvoidingView>
         </View>
+        </Animated.View>
       </Modal>
 
 
@@ -144,7 +193,7 @@ export default function FamiliesScreen ({ navigation }) {
             </View>
           
           
-          } renderItem={renderFamily} keyExtractor={(item) => item._id} />
+          } renderItem={renderFamily} keyExtractor={(item) => item._id} onEndReached={fetchMoreFamilies} onEndReachedThreshold={0.15}/>
 
         )}
 
