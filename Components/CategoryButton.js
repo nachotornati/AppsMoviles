@@ -3,7 +3,6 @@ import React from "react";
 import Icon from 'react-native-vector-icons/AntDesign';
 
 export default function AppButton  ({uri, onPress}) {
-  console.log("Uri que llega")
   return(
     <TouchableOpacity onPress={onPress} style={styles.appButtonContainer}>
       <Icon size={20} color="#FFF" name={uri}/>

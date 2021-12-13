@@ -31,7 +31,6 @@ export default function FamilyScreen({ navigation, route }) {
     const [refresh, setRefresh] = useState(0);
     const  id  = route.params.id;
 
-
     navigation.setOptions({
       headerRight: () => {
         return (  <Icon size={30} onPress={() => { setModalVisible(true) }} name='reload1' onPress={ () => {setRefresh(refresh+1)} } />)
@@ -52,15 +51,10 @@ export default function FamilyScreen({ navigation, route }) {
 
       const response = await data.json()
       const responseCategories = await dataCategories.json()
-      
-
 
       setInformation(response)
       console.log(responseCategories)
-
       responseCategories.categories.sort((A,B)=>{ return !A.flag })
-
-
       setCategories(responseCategories)
       setLoading(false)
       

@@ -10,10 +10,6 @@ export default function MapScreen ({navigation,route}){
   
     const [ latitude, setLatitude ] = useState(0);
     const [ longitude, setLongitude ] = useState(0);
-    
-      
-    console.log(route.params)
-    console.log(id)
   
     const obtenerDatos = async () => {
       const data = await fetch("https://modulo-sanitario-imagenes-db.herokuapp.com/families/"+id+"/coordinate")
