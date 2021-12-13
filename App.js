@@ -11,8 +11,31 @@ import ImageScreen from './Screens/ImageScreen.js';
 
 /* https://reactnavigation.org/docs/native-stack-navigator/ */
 
+/*
+
+Aca tenemos 5 screens (Iniciar Sesion, Families, Family, Image y Map)
+definidas por el componente Stack.Screen. Cada screen toma un componente
+como prop. Todos esos componentes reciben una prop que se llama navigation
+que tiene varios metodos para poder "linkearse" con otras screens. Por ejemplo,
+podes usar navigation.navigate para ir a la screen Profile, por decir algo.
+
+El navigator mas usado es createNativeStackNavigator
+*/
 
 const Stack = createNativeStackNavigator();
+
+/*
+
+Devuelve dos cosas: un Screen y un Navigator. Ambos se usan para configurar
+el Navigator. El Navigator tiene que contener elementos Screen como sus hijos
+para definir la configuracion para las rutas.
+
+
+A cada screen podemos asignarle opciones (options es la prop para esto).
+Usualmente, se suele dar la misma configuracion para todas las screens y
+para eso  le podemos pasar la prop screenOptions al Navigator.
+
+*/
 
 function MyStack() {
   return (
@@ -26,6 +49,7 @@ function MyStack() {
   );
 }
 
+//El Stack.Navigator adentro de NavigationContainer que es el responsable de manejar el estado de la app.
 export default function App() {
   return (
     <NavigationContainer>

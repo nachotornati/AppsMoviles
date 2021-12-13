@@ -38,11 +38,7 @@ export default function MapScreen ({navigation,route}){
   
     return(
       <View>
-  
-      <PhotoMap latitude={latitude} longitude={longitude}></PhotoMap>
-  
+        <PhotoMap latitude={latitude} longitude={longitude}></PhotoMap>
       </View>
-  
-  
     );
 }

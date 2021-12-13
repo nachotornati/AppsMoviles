@@ -11,7 +11,17 @@ LogBox.ignoreAllLogs();
 
 //Hay que hacer un fetch para traer categoria de fotos y otro para traer datos de la familia
 const { width, height } = Dimensions.get('window');
-const SCREEN_WIDTH = width < height ? width : height;
+
+/*
+Cada screen tiene como parametro navigation y route. route contiene información
+acerca de la ruta actual (en que jerarquia nos desplazamos antes de llegar aca).
+De aca podemos sacar los parametros que usamos en navigation.navigate('Twitter', 
+{unObjetoConCosas}). Ese {unObjetoConCosas} es lo que recibimos en route.params.
+
+navigations simplemente contiene funciones.
+
+*/
+
 
 export default function FamilyScreen({ navigation, route }) {
     const [ information, setInformation ] = useState({});
@@ -106,43 +116,57 @@ export default function FamilyScreen({ navigation, route }) {
   
   }
 
-  const styles = StyleSheet.create({
-    familyInfoContainer:{
-      margin: 10,
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: 230,
-      borderColor: '#cccccc',
-      borderWidth: 0.5,
-      borderRadius: 20,
-      backgroundColor:'white'
-    },
-    categoriesInfo: {
-      marginTop: 3,
-      marginBottom: 5
-    },
-    container: {
-      backgroundColor: 'white',
-      flex: 1
-    },
-    category: {
-      fontSize: 14,
-      fontWeight: 'bold',
-      margin: 10,
-      color: '#2cd18a'
-    },
-    infoDescriptionFamily: {
-      color: 'black',
-      fontWeight: 'bold',
-      fontSize: 16,
-      marginTop:5,
-      textAlign:'center'
-    },
-    infoFamilyName: {
-      fontSize: 28,
-      margin: 10,
-      fontWeight: 'bold',
-      color: 'black',
-      textAlign: 'center'
-    }
-  });
+/*
+
+Voy a hacer una mencion a Flex.
+
+flex define como los items van a llenar el espacio disponible. Cada espacio va a ser
+dividido en función de la propiedad flex de cada propiedad. Por ejemplo:
+
+<View style={[styles.container, { flexDirection: "row"}]}>
+  <View style={{ flex: 2, backgroundColor: "red" }} />
+  <View style={{ flex: 2, backgroundColor: "darkorange" }} />
+  <View style={{ flex: 4, backgroundColor: "green" }} />
+</View>
+
+Aca, todos los view adentro del primero, se van a colocar en fila ocupando el mismo ancho red y darkorange
+mientras que el verde va a ocupar un poco mas.
+
+*/
+
+const styles = StyleSheet.create({
+  familyInfoContainer:{
+    margin: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 230,
+    borderColor: '#cccccc',
+    borderWidth: 0.5,
+    borderRadius: 20,
+    backgroundColor:'white'
+  },
+  categoriesInfo: {
+    marginTop: 3,
+    marginBottom: 5
+  },
+  category: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    margin: 10,
+    color: '#2cd18a'
+  },
+  infoDescriptionFamily: {
+    color: 'black',
+    fontWeight: 'bold',
+    fontSize: 16,
+    marginTop:5,
+    textAlign:'center'
+  },
+  infoFamilyName: {
+    fontSize: 28,
+    margin: 10,
+    fontWeight: 'bold',
+    color: 'black',
+    textAlign: 'center'
+  }
+});

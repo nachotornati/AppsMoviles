@@ -14,6 +14,30 @@ LogBox.ignoreAllLogs();
 const { width, height } = Dimensions.get('window');
 const SCREEN_WIDTH = width < height ? width : height;
 
+/*
+
+Los componentes funcionales no poseen estado. Pero se puede usar Hooks.
+
+¿Que es un Hook?
+
+Los Hooks son funciones que te permiten “enganchar” el estado de React y el ciclo de vida desde componentes de función. 
+Los hooks no funcionan dentro de las clases — te permiten usar React sin clases.
+
+React proporciona algunos Hooks incorporados como useState. También puedes crear tus propios Hooks para reutilizar 
+el comportamiento con estado entre diferentes componentes. Primero veremos los Hooks incorporados.
+
+No poseen estado. Pero, se puede usar hooks. useState es un Hook.
+Lo llamamos dentro de un componente de función para agregarle un estado local. 
+React mantendrá este estado entre re-renderizados.
+useState devuelve un par: el valor de estado actual y una función que le permite actualizarlo.
+
+Puedes llamar a esta función desde un controlador de eventos o desde otro lugar. Es similar a this.setState en una clase, 
+excepto que no combina el estado antiguo y el nuevo.
+
+El único argumento para useState es el estado inicial. En el ejemplo anterior, es 0 porque nuestro contador 
+comienza desde cero. Ten en cuenta que a diferencia de this.state, el estado aquí no tiene que ser un objeto 
+— aunque puede serlo si quisieras. El argumento de estado inicial solo se usa durante el primer renderizado.
+*/
 
 export default function FamiliesScreen ({ navigation }) {
   const [ usuarios, setUsuarios ] = useState();
@@ -25,12 +49,32 @@ export default function FamiliesScreen ({ navigation }) {
   const [barrioHolder, setBarrioHolder] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
 
+  /*
+
+  useEffect es un Hook de efecto. Agrega la capacidad de realizar efectos secundarios
+  desde un componente de funcion. Tiene el mismo proposito que (se entiende por montar
+  a la primera renderizacion):
+  -componentDidMount: Se invoca inmediatamente despues de que un componente se monte
+  -componentDidUpdate: Se invoca inmediatamente después de que la actualización ocurra.
+  -componentWillUnmount: Se invoca inmediatamente antes de desmontar y destruir un componente.
+
+  en las clases React pero unificadas en una sola API.
+  
+  La funcion que declaramos en el useEffect podria devolver una función. Esa funcion es la cleanup function.
+  Eso es cuando el usuario deja la pagina y el componente se desmonta.
+
+  Tambien se incluye un arreglo y es donde ponelos los estados que van a actualizarse en el ciclo de vida
+  del componente. Cada vez que actualizamos variables (o estados) que se incluyan en esos arreglos, se corre
+  el useEffect.
+
+  */
 
   useEffect( () => {
     console.log('useEffect')
     obtenerDatos()
   }, [apellido, barrio])
 
+  //setOptions es un metodo que nos permite configurar la screen dentro del mismo
 
   navigation.setOptions({
     headerRight: () => {
@@ -40,10 +84,48 @@ export default function FamiliesScreen ({ navigation }) {
       return (  <Icon size={30} style={{marginRight:20}} onPress={() => {asyncStorageHelper.limpiarToken();GoogleSignin.signOut();navigation.goBack()}} name='door-open' />)
     },
   })
+
+  /*
+  async viene de asincrono. Cuando hacemos async ()... estamos creando una función que es asincrona.
+  Siempre que nosotros llamemos a una funcion asincrona, se devuelve un elemento Promise.
   
-  /*headerRight: () => (<View>
-    <Text onPress={() => setModalVisible(true)}>Filtrar</Text>
-    <Text>Cerrar Sesión</Text></View>),*/
+  Cuando la función async devuelve un valor, Promise se resolverá con el valor devuelto. 
+  Si la función async genera una excepción o algún valor, Promise se rechazará con el valor generado.
+
+  ¿Que es una Promise?
+
+  El objeto Promise (Promesa) es usado para computaciones asíncronas. Una promesa representa un valor que 
+  puede estar disponible ahora, en el futuro, o nunca.
+
+  Se crea de la siguiente manera:
+
+  unaPromise = new Promise((resolve, reject) => {
+    //mucho codigo
+    resolve({lo que deuelve la promesa});
+  })
+
+  Obtenemos lo que el promise nos devuelve con then
+
+  unaPromise.then((datos) => console.log(datos));
+
+  Las promesas se pueden ir concatenando.
+
+  En caso de que queramos el resultado de la Promise y no tenes que usar el then(), podemos usar el await
+
+  datos = await unaPromise();
+
+  Si queremos usar el reject, en cualquier parte del codigo se puede agregar 
+
+  reject(new Error('Texto del error...'))
+
+  Una función async puede contener una expresión await, la cual pausa la ejecución de la función asíncrona 
+  y espera la resolución de la Promise pasada y, a continuación, reanuda la ejecución de la función async y devuelve el valor resuelto. 
+  
+  La finalidad de las funciones async/await es simplificar el comportamiento del uso síncrono de promesas y realizar algún comportamiento específico 
+  en un grupo de Promises. Del mismo modo que las Promises son semejantes a las devoluciones de llamadas estructuradas, async/await se asemejan a una combinación 
+  de generadores y promesas.
+
+  */
 
   const obtenerDatos = async () => {
     jwt = await asyncStorageHelper.obtenerToken()
@@ -67,16 +149,11 @@ export default function FamiliesScreen ({ navigation }) {
 
     console.log(url)
     const data = await fetch(url, https_options)
-    const users = await data.json()
+    const users = await data.json() //Es otra promise el .json()
     setUsuarios(users.results)
     setToken(jwt)
     setLoading(false)
   }
-
-  /*
-  const onPressFamily = (item) => {
-    navigation.navigate("Family", { id:item._id });
-  };*/
 
   const renderFamily = ({ item }) => (
       <FamilyInfoCard navigation={navigation} item={item} token={token}></FamilyInfoCard>
@@ -151,6 +228,27 @@ export default function FamiliesScreen ({ navigation }) {
     </View>
   );
 };
+
+/*
+
+Arriba usamos el FlatList. Tenemos varias props importantes:
+
+- data (requerida): Es un arreglo.
+- renderItem (requerida): Toma un elemento de Data y lo renderiza. Puede tomar mas parametros como index, separators, etc.
+- keyExtractor: Sirve para extraer una key unica para un item especifico en un index determinado. La key se usa para hacer
+una "cache" y hacer un tracking del reordenado de la lista. Si no la pasamos, puede llegar a andar pero tenemos que estar
+seguro que cada item del arreglo que pasamos por data entienda el atributo id. En nuestro caso, tiene que entender _id,
+por lo tanto tuvimos que rehacerlo.
+-ListEmptyComponent: Si no hay elementos en la lista, que se renderice el componente que pasamos por la prop.
+-onEndReached: Por lo general, al llegar al fin de la lista, vamos a querer seguir agregando elementos a la misma. Esta
+prop nos puede ser de mucha ayuda. Le pasamos una funcion que se llama una vez que la posición scrolleada se encuentra
+adentro del onEndReachedThreshold del contenido renderizado.
+-onEndReachedThreshold: es el número de "pantallas visibles" (es decir, las alturas de su elemento de lista) debe desplazarse 
+hasta que se active su devolución de llamada onEndReached - más grande onEndReachedThreshold, menos debería desplazarse. 
+Con el valor onEndReachedThreshold = 0.5, su devolución de llamada se activará casi al "final" de la lista. Pero recuerde que 
+no se disparará hasta que se represente el último elemento, sin importar el valor que establezca.
+
+*/
 
 const styles2 = StyleSheet.create({
   buttonBorrar:{
