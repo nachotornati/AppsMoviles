@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, View, StyleSheet, StatusBar, Text, FlatList, TouchableHighlight, Image, Alert} from 'react-native';
 import PhotoMap from '../Components/PhotoMap';
 import { LogBox } from 'react-native';
-LogBox.ignoreAllLogs();
+//LogBox.ignoreAllLogs();
 
 export default function MapScreen ({navigation,route}){
 

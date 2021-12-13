@@ -7,7 +7,7 @@ import asyncStorageHelper from '../Helpers/asyncStorageHelper';
 import Category from '../Components/Category';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { LogBox } from 'react-native';
-LogBox.ignoreAllLogs();
+//LogBox.ignoreAllLogs();
 
 //Hay que hacer un fetch para traer categoria de fotos y otro para traer datos de la familia
 const { width, height } = Dimensions.get('window');

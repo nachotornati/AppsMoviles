@@ -4,7 +4,7 @@ import { Button, View, StyleSheet, StatusBar, Text, FlatList, TouchableHighlight
 import Gallery from 'react-native-image-gallery';
 import ImageView from "react-native-image-viewing";
 import { LogBox } from 'react-native';
-LogBox.ignoreWarnings = ["Require cycle:", "Warning:"];
+//LogBox.ignoreWarnings = ["Require cycle:", "Warning:"];
 
 export default function ImageScreen({navigation,route}) {
   console.log(route);
