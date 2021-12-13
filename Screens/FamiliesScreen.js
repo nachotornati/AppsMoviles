@@ -1,6 +1,6 @@
 import { FamilyInfoCard } from '../Components/FamilyInfoCard';
 import React, { useEffect, useState } from 'react';
-import { Button, View, StyleSheet, Text, FlatList, Modal, Pressable, KeyboardAvoidingView, ActivityIndicator, useColorScheme} from 'react-native';
+import { Button, View, StyleSheet, Text, FlatList, Modal, Pressable, KeyboardAvoidingView, ActivityIndicator, Animated, PanResponder} from 'react-native';
 import { Dimensions } from 'react-native';
 import asyncStorageHelper from '../Helpers/asyncStorageHelper'
 import { TextInput, Title } from 'react-native-paper';
@@ -25,9 +25,23 @@ export default function FamiliesScreen ({ navigation }) {
   const [apellidoHolder, setApellidoHolder] = useState('');
   const [barrioHolder, setBarrioHolder] = useState('');
   const [modalVisible, setModalVisible] = useState(false);
+  const [pageNum, setpageNum] = useState(1);
   const [currentPage, setCurrentPage] = useState(1)
   const [isFetching, setIsFetching] = useState(false)
   const [shouldClean, setShouldClean] = useState(true)
+  const [pan, setPan] = useState(new Animated.ValueXY());
+  const [panResponder, setPanResponder] = useState(PanResponder.create({
+    onStartShouldSetPanResponder: () => true,
+    onPanResponderEnd: () => true,
+    onMoveShouldSetPanResponder: () => true,
+    onPanResponderGrant: () => true,                      
+    onPanResponderRelease: (e, gesto) => true,
+    onPanResponderMove: (e, gesto) => {
+        if(gesto.dy >= 90){
+            setTimeout(() => {setModalVisible(false)});
+        }
+    }                     
+}));
 
   useEffect( () => {
     console.log('useEffect')
@@ -104,7 +118,9 @@ export default function FamiliesScreen ({ navigation }) {
 
   return (
     <View>
+      
       <Modal animationType="slide" transparent={true} visible={modalVisible} onRequestClose={() => {setModalVisible(!modalVisible);}}>
+      <Animated.View style = {{ flex: 1, justifyContent: "center", alignItems: "center"}} {...panResponder.panHandlers}>
         <View style={styles2.centeredView}>
           <KeyboardAvoidingView style={styles2.modalView}>
             <Icon size={30} name="window-minimize" style={{marginBottom: 200, textAlign: "center"}} onPress={()=>{setModalVisible(false)}}/>
@@ -117,6 +133,7 @@ export default function FamiliesScreen ({ navigation }) {
                 setBarrio(barrioHolder)
                 setCurrentPage(1)
                 setModalVisible(!modalVisible)
+                setUsuarios([]);
                 }}>
               <Text style={styles2.textStyle}>Filtrar</Text>
             </Pressable>
@@ -133,6 +150,7 @@ export default function FamiliesScreen ({ navigation }) {
             </Pressable>
           </KeyboardAvoidingView>
         </View>
+        </Animated.View>
       </Modal>
 
 
