@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Button, View, StyleSheet, StatusBar, Dimensions, Text, FlatList, TouchableHighlight, Image, Alert, SafeAreaView, ActivityIndicator} from 'react-native';
-import { Modal } from 'react-native-paper';
 import AppButton from '../Components/AppButton';
-import { FamilyInfoCard } from '../Components/FamilyInfoCard';
 import asyncStorageHelper from '../Helpers/asyncStorageHelper';
 import Category from '../Components/Category';
 import Icon from 'react-native-vector-icons/AntDesign';
-import { LogBox } from 'react-native';
 //LogBox.ignoreAllLogs();
 
 //Hay que hacer un fetch para traer categoria de fotos y otro para traer datos de la familia

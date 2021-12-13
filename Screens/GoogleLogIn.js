@@ -1,13 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Background from '../Components/Background'
-import Logo from '../Components/Logo'
-import Header from '../Components/Header'
-import Paragraph from '../Components/Paragraph'
 import {Image, StyleSheet} from 'react-native'
 import { GoogleSignin, GoogleSigninButton, statusCodes} from '@react-native-google-signin/google-signin';
 import asyncStorageHelper from '../Helpers/asyncStorageHelper'
-import { LogBox } from 'react-native';
-//LogBox.ignoreAllLogs();
 
 export default function GoogleLogIn ({navigation}){
 

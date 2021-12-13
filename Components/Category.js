@@ -1,11 +1,8 @@
 import React,{Component} from "react";
-import{Platform, StyleSheet,Text,View, TouchableHighlight, Image, Alert} from "react-native";
-import AppButton from "./AppButton";
+import{StyleSheet,Text,View, TouchableHighlight, Image, Alert} from "react-native";
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import {Button} from 'react-native-paper'
 import ImageView from "react-native-image-viewing";
 import CategoryButton from '../Components/CategoryButton';
-import { set } from "react-native-reanimated";
 
 export default class Category extends Component{
     constructor(props){
