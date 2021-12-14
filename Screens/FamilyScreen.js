@@ -4,9 +4,8 @@ import AppButton from '../Components/AppButton';
 import asyncStorageHelper from '../Helpers/asyncStorageHelper';
 import Category from '../Components/Category';
 import Icon from 'react-native-vector-icons/AntDesign';
-//LogBox.ignoreAllLogs();
 
-//Hay que hacer un fetch para traer categoria de fotos y otro para traer datos de la familia
+
 const { width, height } = Dimensions.get('window');
 
 /*
@@ -18,7 +17,6 @@ De aca podemos sacar los parametros que usamos en navigation.navigate('Twitter',
 navigations simplemente contiene funciones.
 
 */
-
 
 export default function FamilyScreen({ navigation, route }) {
     const [ information, setInformation ] = useState({});

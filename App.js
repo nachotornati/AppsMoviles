@@ -27,8 +27,8 @@ const Stack = createNativeStackNavigator();
 
 Devuelve dos cosas: un Screen y un Navigator. Ambos se usan para configurar
 el Navigator. El Navigator tiene que contener elementos Screen como sus hijos
-para definir la configuracion para las rutas.
-
+para definir la configuracion para las rutas. Es el responsable de manejar
+el estado de la app
 
 A cada screen podemos asignarle opciones (options es la prop para esto).
 Usualmente, se suele dar la misma configuracion para todas las screens y
@@ -36,23 +36,11 @@ para eso  le podemos pasar la prop screenOptions al Navigator.
 
 */
 
-function MyStack() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="Iniciar Sesion" options={{headerShown: false}} component={GoogleLogIn} />
-      <Stack.Screen name="Families" component={FamiliesScreen} options={{ title: 'Familias' }} />
-      <Stack.Screen name="Family" component={FamilyScreen} options={{ title: 'Familia' }} />
-      <Stack.Screen name="Map" component={MapScreen} options={{ title: 'Mapa' }} />
-    </Stack.Navigator>
-  );
-}
-
-//El Stack.Navigator adentro de NavigationContainer que es el responsable de manejar el estado de la app.
 export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Iniciar Sesion" options={{headerShown: false}} component={GoogleLogIn} />
+        <Stack.Screen name="Iniciar Sesion" component={GoogleLogIn} options={{headerShown: false}} />
         <Stack.Screen name="Families" component={FamiliesScreen} options={{ title: 'Familias' }} />
         <Stack.Screen name="Family" component={FamilyScreen} options={{ title: 'Familia' }} />
         <Stack.Screen name="Map" component={MapScreen} options={{ title: 'Mapa' }} />

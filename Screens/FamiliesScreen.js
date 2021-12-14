@@ -8,9 +8,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 
-
 const { width, height } = Dimensions.get('window');
-const SCREEN_WIDTH = width < height ? width : height;
 
 /*
 
@@ -262,7 +260,7 @@ export default function FamiliesScreen({ navigation }) {
           renderItem={renderFamily}
           onEndReached={fetchMoreFamilies}
           onEndReachedThreshold={0.5}
-          keyExtractor={(item, index) => item._id.toString()}
+          keyExtractor={(item) => item._id.toString()}
         />
       )}
 
