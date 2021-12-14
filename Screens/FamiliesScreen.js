@@ -64,19 +64,38 @@ export default function FamiliesScreen({ navigation }) {
   el useEffect.
 
   */
-  const [pageNum, setpageNum] = useState(1);
   const [currentPage, setCurrentPage] = useState(1)
   const [isFetching, setIsFetching] = useState(false)
   const [shouldClean, setShouldClean] = useState(true)
+  
+  /*
+
+  Para poder manejar los gestos del usuario usamos PanResponder. El gesto se lo encapsula en un objeto que es
+  gestureState. Tiene los siguientes atributos:
+
+  -stateID - ID of the gestureState- persisted as long as there's at least one touch on screen
+  -moveX - the latest screen coordinates of the recently-moved touch
+  -moveY - the latest screen coordinates of the recently-moved touch
+  -x0 - the screen coordinates of the responder grant
+  -y0 - the screen coordinates of the responder grant
+  -dx - accumulated distance of the gesture since the touch started
+  -dy - accumulated distance of the gesture since the touch started
+  -vx - current velocity of the gesture
+  -vy - current velocity of the gesture
+  -numberActiveTouches - Number of touches currently on screen
+
+  */
+
   const [panResponder, setPanResponder] = useState(PanResponder.create({
-    onStartShouldSetPanResponder: () => true,
-    onPanResponderEnd: () => true,
-    onMoveShouldSetPanResponder: () => true,
-    onPanResponderGrant: () => true,
-    onPanResponderRelease: (e, gesto) => true,
-    onPanResponderMove: (e, gesto) => {
+    onStartShouldSetPanResponder: (evento, gesto) => {console.log("onStartShouldSetPanResponder");return true}, //Si ponemos false, el gesto no anda directamente. Cuando arranca el gesto, el PanResponder funciona
+    onPanResponderEnd: (evento, gesto) => {console.log("onPanResponderEnd");return true},
+    onMoveShouldSetPanResponder: (evento, gesto) => {console.log("onMoveShouldSetPanResponder");return true},
+    onPanResponderGrant: (evento, gesto) => {console.log(gesto)}, /* Esto se hace cuando el gesto arracò. Se lo suele usar para hacer un feedback de 
+                                                                     que por lo menos el gesto arrancò*/
+    onPanResponderRelease: (evento, gesto) => {console.log("Se libera el gesto")}, /* Esto se hace cuando el gesto termina */
+    onPanResponderMove: (evento, gesto) => { /*Esto se hace siempre y cuando el gesto se mueva*/
       if (gesto.dy >= 90) {
-        setTimeout(() => { setModalVisible(false) });
+        setModalVisible(false);
       }
     }
   }));

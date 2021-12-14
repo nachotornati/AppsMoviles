@@ -6,6 +6,7 @@ import asyncStorageHelper from '../Helpers/asyncStorageHelper'
 
 
 /*
+
 Un módulo es una unidad autónoma que puede exponer activos 
 a otros módulos usando export y adquirir activos de otros módulos usando import.
 
@@ -19,10 +20,6 @@ import HelloWorld from './HelloWorld';
 
 No necesariamente lo importa, ya HelloWorld que puede darle cualquier nombre, 
 ya que es una exportación predeterminada
-
-*/
-
-/*
 
 Los components podemos hacerlos como funciones. Abajo hay un ejemplo. Son simplemente
 funciones de Javascript. Pueden recibir parametros y lo que retornan es codigo JSX.
