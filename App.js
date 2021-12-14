@@ -10,24 +10,17 @@ import MapScreen  from './Screens/MapScreen.js';
 
 /* https://reactnavigation.org/docs/native-stack-navigator/ */
 
-
 const Stack = createNativeStackNavigator();
-
-function MyStack() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen name="Iniciar Sesion" options={{headerShown: false}} component={GoogleLogIn} />
-      <Stack.Screen name="Families" component={FamiliesScreen} options={{ title: 'Familias' }} />
-      <Stack.Screen name="Family" component={FamilyScreen} options={{ title: 'Familia' }} />
-      <Stack.Screen name="Map" component={MapScreen} options={{ title: 'Mapa' }} />
-    </Stack.Navigator>
-  );
-}
 
 export default function App() {
   return (
     <NavigationContainer>
-      <MyStack />
+      <Stack.Navigator>
+        <Stack.Screen name="Iniciar Sesion" component={GoogleLogIn} options={{headerShown: false}} />
+        <Stack.Screen name="Families" component={FamiliesScreen} options={{ title: 'Familias' }} />
+        <Stack.Screen name="Family" component={FamilyScreen} options={{ title: 'Familia' }} />
+        <Stack.Screen name="Map" component={MapScreen} options={{ title: 'Mapa' }} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }

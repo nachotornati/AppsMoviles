@@ -1,9 +1,5 @@
 import React from 'react';
-import { Text, View, Image, StyleSheet, Dimensions, TouchableHighlight, LogBox } from 'react-native';
-
-
-const { width, height } = Dimensions.get('window');
-const SCREEN_WIDTH = width < height ? width : height;
+import { Text, View, StyleSheet, Dimensions, TouchableHighlight, LogBox } from 'react-native';
 
 export function FamilyInfoCard(props) {
   return (
