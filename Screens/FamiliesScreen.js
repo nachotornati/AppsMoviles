@@ -88,7 +88,6 @@ export default function FamiliesScreen ({ navigation }) {
 }));
 
   useEffect( () => {
-    console.log('useEffect')
     obtenerDatos()
   }, [apellido, barrio, currentPage])
 
@@ -149,7 +148,6 @@ export default function FamiliesScreen ({ navigation }) {
     setIsFetching(true)
 
     jwt = await asyncStorageHelper.obtenerToken()
-    //console.log(jwt)
     https_options = { 
       method: 'get', 
       headers: new Headers({
@@ -171,8 +169,6 @@ export default function FamiliesScreen ({ navigation }) {
     const data = await fetch(url, https_options)
     const users = await data.json() //Es otra promise el .json()
 
-    console.log("Usuarios Obtenidos:", users.results)
-
     if(shouldClean){
       console.log("Se limpia usuarios...")
       setUsuarios(users.results)
@@ -181,7 +177,6 @@ export default function FamiliesScreen ({ navigation }) {
     else if(users.length != 0){
       let newUsers = [...usuarios,...users.results]
       let uniqueUsers = newUsers.filter((v, i, a) => a.findIndex(t => (t._id === v._id)) === i)
-      console.log("Usuarios que se muestran:", uniqueUsers)
       setUsuarios(uniqueUsers)
     }
 

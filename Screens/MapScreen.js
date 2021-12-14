@@ -23,8 +23,7 @@ export default function MapScreen ({navigation,route}){
 
       setLatitude(response.coordinate.latitude)
       setLongitude(response.coordinate.longitude)
-      console.log("https://modulo-sanitario-imagenes-db.herokuapp.com/families/"+id+"/coordinate")
-      
+
       }
     }
   

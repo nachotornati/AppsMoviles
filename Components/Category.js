@@ -156,7 +156,6 @@ export default class Category extends Component{
       }
     }
     catch(error){
-      console.log(error)
       Alert.alert("Hubo un error al eliminar la imagen. Intente de nuevo.")
     }
   }

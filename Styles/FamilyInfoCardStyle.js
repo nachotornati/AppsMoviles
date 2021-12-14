@@ -21,6 +21,3 @@ export const familyInfoCardStyle = StyleSheet.create({
       marginLeft: 5,
     },
   });
-
-
-//Storm: #222c3c | Moon: #989da6 | Leather: #93634a | Nude: #ae9789 | Cloud: #a19e9f

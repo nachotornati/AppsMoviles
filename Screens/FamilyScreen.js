@@ -53,7 +53,6 @@ export default function FamilyScreen({ navigation, route }) {
       const responseCategories = await dataCategories.json()
 
       setInformation(response)
-      console.log(responseCategories)
       responseCategories.categories.sort((A,B)=>{ return !A.flag })
       setCategories(responseCategories)
       setLoading(false)
