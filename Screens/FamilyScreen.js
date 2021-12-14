@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Button, View, StyleSheet, StatusBar, Dimensions, Text, FlatList, TouchableHighlight, Image, Alert, SafeAreaView, ActivityIndicator} from 'react-native';
-import { Modal } from 'react-native-paper';
+import { View, StyleSheet, Dimensions, Text, FlatList, SafeAreaView, ActivityIndicator} from 'react-native';
 import AppButton from '../Components/AppButton';
-import { FamilyInfoCard } from '../Components/FamilyInfoCard';
 import asyncStorageHelper from '../Helpers/asyncStorageHelper';
 import Category from '../Components/Category';
 import Icon from 'react-native-vector-icons/AntDesign';
-import { LogBox } from 'react-native';
 //LogBox.ignoreAllLogs();
 
 //Hay que hacer un fetch para traer categoria de fotos y otro para traer datos de la familia
@@ -63,8 +60,6 @@ export default function FamilyScreen({ navigation, route }) {
       obtenerDatos()
     }, [navigation, refresh])
 
-    
-    //<Text style={styles.categoriesInfo}>{getNumberOfPhotos(item.id)} photos</Text>
     const renderCategory = ({ item }) => (
       <Category navigation={navigation} id={id} item={item} token={token} ></Category>
     );
@@ -75,33 +70,24 @@ export default function FamilyScreen({ navigation, route }) {
       {loading ? (
           <ActivityIndicator
             size="large" color="#0000ff"
-            //visibility of Overlay Loading Spinner
             visible={loading}
-            //Text with the Spinner
             textContent={'Loading...'}
-            //Text style of the Spinner Text
             style={{
-              height:height-50,
-              width:width,
-            }}
-
-
-          />
-        ) : (
-
-          <FlatList ListHeaderComponent={
-              
+            height:height-50,
+            width:width,
+            }}/>) 
+          : (
+          <FlatList ListHeaderComponent={ 
             <View style={styles.familyInfoContainer}>
             <Text style={styles.infoFamilyName} >{'Familia ' + information.apellido}</Text>
               <View style={{marginBottom:10}}>
                 <Text style={styles.infoDescriptionFamily} >{information.estado}</Text>
               </View>
             <AppButton title={'Ver mapa'} onPress={()=>{navigation.navigate('Map',id)}}/>
-    
-          </View>
-    } data={categories.categories} renderItem={renderCategory} keyExtractor={(item) => item.name. spanish} />
-
-        )}
+          </View>} 
+            data={categories.categories} 
+            renderItem={renderCategory}
+            keyExtractor={(item) => item.name.spanish} />)}
 
       
     </SafeAreaView>

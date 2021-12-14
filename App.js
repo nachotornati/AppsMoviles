@@ -51,7 +51,12 @@ function MyStack() {
 export default function App() {
   return (
     <NavigationContainer>
-      <MyStack />
+      <Stack.Navigator>
+        <Stack.Screen name="Iniciar Sesion" options={{headerShown: false}} component={GoogleLogIn} />
+        <Stack.Screen name="Families" component={FamiliesScreen} options={{ title: 'Familias' }} />
+        <Stack.Screen name="Family" component={FamilyScreen} options={{ title: 'Familia' }} />
+        <Stack.Screen name="Map" component={MapScreen} options={{ title: 'Mapa' }} />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }

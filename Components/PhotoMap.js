@@ -1,8 +1,6 @@
-import React,{Component} from "react";
-import { render } from "react-dom";
-import{Platform, StyleSheet,Text,View} from "react-native";
-import MapView, {Marker} from "react-native-maps";
-import Geolocation from '@react-native-community/geolocation';
+import React, { Component } from "react";
+import { Platform, StyleSheet, Text, View } from "react-native";
+import MapView, { Marker } from "react-native-maps";
 
 /*
 
@@ -36,22 +34,20 @@ Los valores izquierdo y derecho son los necesarios para llenar el ancho sin esti
 Luego, podemos poner markers (todos los que queramos) con una coordenada especifica
 */
 
+export default class PhotoMap extends Component {
 
-export default class PhotoMap extends Component{
- 
-    render(){
-        return(
+    render() {
+        return (
 
-            <View style= {styles.container}>
-                <MapView 
+            <View style={styles.container}>
+                <MapView
                     style={styles.map}
                     region={{
                         latitude:this.props.latitude,
                         longitude:this.props.longitude,
                         latitudeDelta: 0.01,
                         longitudeDelta:0.01,
-                    }}
-                >
+                    }}>
                 <Marker coordinate={{latitude:this.props.latitude+0.001, longitude:this.props.longitude}}></Marker>
                             
                 </MapView>
@@ -61,11 +57,11 @@ export default class PhotoMap extends Component{
     }
 
 }
-const styles= StyleSheet.create({
-    container:{
+const styles = StyleSheet.create({
+    container: {
         width: '100%', height: '100%'
     },
-    map:{
-        width: '100%', height: '100%' 
+    map: {
+        width: '100%', height: '100%'
     }
 });

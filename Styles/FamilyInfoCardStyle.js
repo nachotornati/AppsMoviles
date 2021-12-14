@@ -1,11 +1,6 @@
 import { StyleSheet } from 'react-native';
 
 export const familyInfoCardStyle = StyleSheet.create({
-    familyInfoCard: {
-      //marginVertical: 8,
-      //marginHorizontal: 16,
-      //borderRadius: 15,
-    },
     category: {
       marginTop: 5,
       marginBottom: 5

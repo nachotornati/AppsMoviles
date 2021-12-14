@@ -178,7 +178,6 @@ export default class Category extends Component{
                     <Text style={styles.categoriesName}>{this.state.item.name.spanish}</Text>
           </View>
         </TouchableHighlight>
-
       );
   }
 
@@ -187,17 +186,6 @@ export default class Category extends Component{
 
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      textAlign: 'center',
-      paddingTop: 30,
-      backgroundColor: '#ecf0f1',
-      padding: 8,
-    },
-    spinnerTextStyle: {
-      color: '#FFF',
-    },
     categoriesItemContainer: {
       margin: 10,
       justifyContent: 'center',
@@ -208,16 +196,6 @@ const styles = StyleSheet.create({
       borderRadius: 20,
       backgroundColor:'white',
     
-    },
-    familyInfoContainer:{
-      margin: 10,
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: 230,
-      borderColor: '#cccccc',
-      borderWidth: 0.5,
-      borderRadius: 20,
-      backgroundColor:'white'
     },
     categoriesPhoto: {
       width: '100%',
@@ -259,41 +237,4 @@ const styles = StyleSheet.create({
       marginTop: 3,
       marginBottom: 5
     },
-    container: {
-      backgroundColor: 'white',
-      flex: 1
-    },
-    buttonContainer: {
-     
-      flexDirection: 'row',
-      alignSelf: 'stretch',
-      
-
-    },
- 
-    infoCategory: {
-      fontSize: 14,
-      fontWeight: 'bold',
-      marginLeft: 5,
-    },
-    category: {
-      fontSize: 14,
-      fontWeight: 'bold',
-      margin: 10,
-      color: '#2cd18a'
-    },
-    infoDescriptionCategory: {
-      color: 'black',
-      fontWeight: 'bold',
-      fontSize: 16,
-      marginTop:5,
-      textAlign:'center'
-    },
-    infoCategoryName: {
-      fontSize: 28,
-      margin: 10,
-      fontWeight: 'bold',
-      color: 'black',
-      textAlign: 'center'
-    }
   });
