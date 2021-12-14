@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, View, StyleSheet, StatusBar, Dimensions, Text, FlatList, TouchableHighlight, Image, Alert, SafeAreaView, ActivityIndicator} from 'react-native';
+import { View, StyleSheet, Dimensions, Text, FlatList, SafeAreaView, ActivityIndicator} from 'react-native';
 import AppButton from '../Components/AppButton';
 import asyncStorageHelper from '../Helpers/asyncStorageHelper';
 import Category from '../Components/Category';

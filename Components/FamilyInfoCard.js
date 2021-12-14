@@ -41,10 +41,4 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around'
 
   },
-  family: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    margin: 10,
-    color: '#2cd18a'
-  },
 });

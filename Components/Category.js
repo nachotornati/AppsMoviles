@@ -5,113 +5,88 @@ import ImageView from "react-native-image-viewing";
 import CategoryButton from '../Components/CategoryButton';
 
 export default class Category extends Component{
-    constructor(props){
-        super(props);
-        var fecha = new Date()
-        this.state={
-            id: this.props.id,
-            item: this.props.item,
-            navigation: this.props.navigation,
-            imgUri: "https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/"+ this.props.id + "/"+ this.props.item.path,
-            imgPath: "https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/"+ this.props.id + "/"+ this.props.item.path + '?time=' + fecha,
-            token: this.props.token,
-            visible: false
-          }
-
-    }
-
-    setIsVisible(boolean){
-      this.setState({visible: boolean})
-    }
-
-
-    onPressCategory(id,category, token){
-        console.log("id antes ", id);
-        console.log("path antes ", category);
-        //this.state.navigation.navigate("Image", {id,category, token});
-        this.setIsVisible(true)
-    }
-
-    openLibrary(){
-        const options = {
-          mediaType:'photo',
-          selectionLimit:1,
+  constructor(props){
+      super(props);
+      var fecha = new Date()
+      this.state={
+          id: this.props.id,
+          item: this.props.item,
+          navigation: this.props.navigation,
+          imgUri: "https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/"+ this.props.id + "/"+ this.props.item.path,
+          imgPath: "https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/"+ this.props.id + "/"+ this.props.item.path + '?time=' + fecha,
+          token: this.props.token,
+          visible: false
         }
-  
-        launchImageLibrary(options,(res)=>{
-          console.log('Subiendo Imagen....');
-          console.log(res.uri);
-          this.uploadPictureToServer(res.uri);
-  
-        });
+
+  }
+
+  setIsVisible(boolean){
+    this.setState({visible: boolean})
+  }
+
+
+  onPressCategory(id,category, token){
+      console.log("id antes ", id);
+      console.log("path antes ", category);
+      this.setIsVisible(true)
+  }
+
+  openLibrary(){
+      const options = {
+        mediaType:'photo',
+        selectionLimit:1,
       }
 
-      openCamera(){
-        const options = {
-          mediaType:'photo',
-          selectionLimit:1,
-        }
+      launchImageLibrary(options,(res)=>{
+        console.log('Subiendo Imagen....');
+        console.log(res.uri);
+        this.uploadPictureToServer(res.uri);
+
+      });
+  }
+
+  openCamera(){
+    const options = {
+      mediaType:'photo',
+      selectionLimit:1,
+    }
   
-        launchCamera(options,(res)=>{
-          console.log('Subiendo Imagen....');
-          console.log(res.uri);
-          this.uploadPictureToServer(res.uri);
-        });
-      }
+  launchCamera(options,(res)=>{
+      console.log('Subiendo Imagen....');
+      console.log(res.uri);
+      this.uploadPictureToServer(res.uri);
+    });
+  }
 
-     async uploadPictureToServer(imagePath){ // change url
-      try{
-        console.log('upload method ' + this.state.id + this.state.item.path)
-        let url = 'https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/' + this.state.id  + '/' +  this.state.item.path
-        console.log('LINK FOTO')
-        let body = new FormData();
-        body.append('upload', {uri: imagePath,name: 'photo.jpg',filename :'imageTest45.jpg',type: 'image/jpg'});
-        const response = await fetch(url,{ method: 'POST',headers:{  
-          "Content-Type": "multipart/form-data",
-          "otherHeader": "foo",
-          "Authentication": this.state.token
-        } , body :body} )
+  async uploadPictureToServer(imagePath){
+    try{
+      let url = 'https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/' + this.state.id  + '/' +  this.state.item.path
+      let body = new FormData();
+      body.append('upload', {uri: imagePath, name: 'photo.jpg', type: 'image/jpg'});
+      const response = await fetch(url,{ method: 'POST',headers:{  "Content-Type": "multipart/form-data", "otherHeader": "foo", "Authentication": this.state.token} , body :body} )
+      const jsonResponse = await response.json()
 
-        const jsonResponse = await response.json()
-        console.log(jsonResponse)
-        if(jsonResponse.error.flag){
-          Alert.alert("Hubo un error al subir la imagen. Intente de nuevo.")
-        }
-        else{
-          setTimeout(()=>{
-            this.setState({imgPath: this.state.imgUri + '?time=' + new Date()})
-            console.log('nuevo path >>>>>>> ',this.state.imgPath)}, 2000)
-        }
-      }
-      catch(error){
+      if(jsonResponse.error.flag){
         Alert.alert("Hubo un error al subir la imagen. Intente de nuevo.")
       }
-  
+      else{
+        setTimeout(()=>{this.setState({imgPath: this.state.imgUri + '?time=' + new Date()})}, 2000)
       }
+    }
+    catch(error){
+      Alert.alert("Hubo un error al subir la imagen. Intente de nuevo.")
+    }
+  }
 
-    showConfirmDialog = () => {
-        return Alert.alert(
-          "Eliminar imagen",
-          "¿Estas seguro que deseas eliminar esta imagen?",
-          [
-            // The "Yes" button
-            {
-              text: "Si",
-              onPress: () => {
-                this.deletePicture();
-              },
-            },
-            // The "No" button
-            // Does nothing but dismiss the dialog when tapped
-            {
-              text: "No",
-            },
-          ]
-        );
-      };
+  showConfirmDialog = () => {
+      return Alert.alert(
+        "Eliminar imagen",
+        "¿Estas seguro que deseas eliminar esta imagen?",
+        [{text: "Si", onPress: () => {this.deletePicture();}}, {text: "No"}]
+  );};
 
-    async deletePicture(){
-      try{
+  async deletePicture(){
+    try{
       let url = 'https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/' + this.state.id  + '/' +  this.state.item.path
       var requestOptions = {
         method: 'DELETE',
@@ -123,65 +98,50 @@ export default class Category extends Component{
       
       var response = await fetch(url, requestOptions)
 
-      console.log("Hola")
       const jsonResponse = await response.json()
-      console.log(jsonResponse)
 
-       if(jsonResponse.error.flag){
-         Alert.alert("Hubo un error al eliminar la imagen. Intente de nuevo.")
-       }
-       else{
-        let newImagePath = this.state.imgUri + '?time=' + new Date()
-         setTimeout(()=>{this.setState({imgPath: newImagePath})}, 2000)
-       }
-      }
-      catch(error){
-        console.log(error)
+      if(jsonResponse.error.flag){
         Alert.alert("Hubo un error al eliminar la imagen. Intente de nuevo.")
       }
+      else{
+        let newImagePath = this.state.imgUri + '?time=' + new Date()
+        setTimeout(()=>{this.setState({imgPath: newImagePath})}, 2000)}
     }
+    catch(error){
+      console.log(error)
+      Alert.alert("Hubo un error al eliminar la imagen. Intente de nuevo.")
+    }
+  }
 
-
-    render(){
-        return(
-            
-        <TouchableHighlight underlayColor="rgba(37, 150, 190,0.2)" onPress={() => this.onPressCategory(this.state.id,this.state.item.path, this.state.token)}>
-        <View style={styles.categoriesItemContainer}>
-        <ImageView images={[{
-          uri: this.state.imgPath,
-          headers: { Authorization: this.state.token }}]} imageIndex={0} visible={this.state.visible} onRequestClose={() => this.setIsVisible(false)} />
-        <Image style={styles.categoriesPhoto} source={{
-          uri: this.state.imgPath,
-          headers: { Authorization: this.state.token }}} />
-          <View style={styles.categoryNameContainer}>
-          <CategoryButton uri={'upload'} onPress={()=>{ this.openLibrary()}}/>
-          <CategoryButton uri={'camerao'} onPress={()=>{ this.openCamera()}}/>
-          <CategoryButton uri={'delete'} onPress={()=>{ this.showConfirmDialog()}}/>
-          </View>
-                  <Text style={styles.categoriesName}>{this.state.item.name.spanish}</Text>
+  render(){
+      return(
+          
+      <TouchableHighlight underlayColor="rgba(37, 150, 190,0.2)" onPress={() => this.onPressCategory(this.state.id,this.state.item.path, this.state.token)}>
+      <View style={styles.categoriesItemContainer}>
+      <ImageView images={[{
+        uri: this.state.imgPath,
+        headers: { Authorization: this.state.token }}]} imageIndex={0} visible={this.state.visible} onRequestClose={() => this.setIsVisible(false)} />
+      <Image style={styles.categoriesPhoto} source={{
+        uri: this.state.imgPath,
+        headers: { Authorization: this.state.token }}} />
+        <View style={styles.categoryNameContainer}>
+        <CategoryButton uri={'upload'} onPress={()=>{ this.openLibrary()}}/>
+        <CategoryButton uri={'camerao'} onPress={()=>{ this.openCamera()}}/>
+        <CategoryButton uri={'delete'} onPress={()=>{ this.showConfirmDialog()}}/>
         </View>
-        
-      </TouchableHighlight>
+                <Text style={styles.categoriesName}>{this.state.item.name.spanish}</Text>
+      </View>
+      
+    </TouchableHighlight>
 
-        );
-    }
+      );
+  }
 
 }
 
 
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      justifyContent: 'center',
-      textAlign: 'center',
-      paddingTop: 30,
-      backgroundColor: '#ecf0f1',
-      padding: 8,
-    },
-    spinnerTextStyle: {
-      color: '#FFF',
-    },
     categoriesItemContainer: {
       margin: 10,
       justifyContent: 'center',
@@ -192,16 +152,6 @@ const styles = StyleSheet.create({
       borderRadius: 20,
       backgroundColor:'white',
     
-    },
-    familyInfoContainer:{
-      margin: 10,
-      justifyContent: 'center',
-      alignItems: 'center',
-      height: 230,
-      borderColor: '#cccccc',
-      borderWidth: 0.5,
-      borderRadius: 20,
-      backgroundColor:'white'
     },
     categoriesPhoto: {
       width: '100%',
@@ -243,41 +193,4 @@ const styles = StyleSheet.create({
       marginTop: 3,
       marginBottom: 5
     },
-    container: {
-      backgroundColor: 'white',
-      flex: 1
-    },
-    buttonContainer: {
-     
-      flexDirection: 'row',
-      alignSelf: 'stretch',
-      
-
-    },
- 
-    infoCategory: {
-      fontSize: 14,
-      fontWeight: 'bold',
-      marginLeft: 5,
-    },
-    category: {
-      fontSize: 14,
-      fontWeight: 'bold',
-      margin: 10,
-      color: '#2cd18a'
-    },
-    infoDescriptionCategory: {
-      color: 'black',
-      fontWeight: 'bold',
-      fontSize: 16,
-      marginTop:5,
-      textAlign:'center'
-    },
-    infoCategoryName: {
-      fontSize: 28,
-      margin: 10,
-      fontWeight: 'bold',
-      color: 'black',
-      textAlign: 'center'
-    }
   });

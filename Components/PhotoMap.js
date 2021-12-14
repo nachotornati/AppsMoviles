@@ -3,7 +3,6 @@ import { Platform, StyleSheet, Text, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 
 
-
 export default class PhotoMap extends Component {
 
     render() {

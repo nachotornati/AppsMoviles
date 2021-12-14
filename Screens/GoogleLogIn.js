@@ -71,7 +71,6 @@ export default function GoogleLogIn ({navigation}){
             size={GoogleSigninButton.Size.Wide}
             color={GoogleSigninButton.Color.Dark}
             onPress={signIn}
-            /*disabled={isSigninInProgress}*/
     />
   </Background>
   )
