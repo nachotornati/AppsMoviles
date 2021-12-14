@@ -13,8 +13,7 @@ export default function GoogleLogIn ({navigation}){
     });
   }
 
-  async function isAllowToLog(jwt){
-    
+  async function isAllowToLog(jwt){ 
     try{
 
       https_options = { 

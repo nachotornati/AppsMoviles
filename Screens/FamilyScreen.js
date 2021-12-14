@@ -39,15 +39,10 @@ export default function FamilyScreen({ navigation, route }) {
 
       const response = await data.json()
       const responseCategories = await dataCategories.json()
-      
-
 
       setInformation(response)
-      console.log(responseCategories)
 
       responseCategories.categories.sort((A,B)=>{ return !A.flag })
-
-
       setCategories(responseCategories)
       setLoading(false)
       
@@ -57,8 +52,6 @@ export default function FamilyScreen({ navigation, route }) {
       obtenerDatos()
     }, [navigation, refresh])
 
-    
-    //<Text style={styles.categoriesInfo}>{getNumberOfPhotos(item.id)} photos</Text>
     const renderCategory = ({ item }) => (
       <Category navigation={navigation} id={id} item={item} token={token} ></Category>
     );
@@ -69,33 +62,24 @@ export default function FamilyScreen({ navigation, route }) {
       {loading ? (
           <ActivityIndicator
             size="large" color="#0000ff"
-            //visibility of Overlay Loading Spinner
             visible={loading}
-            //Text with the Spinner
             textContent={'Loading...'}
-            //Text style of the Spinner Text
             style={{
-              height:height-50,
-              width:width,
-            }}
-
-
-          />
-        ) : (
-
-          <FlatList ListHeaderComponent={
-              
+            height:height-50,
+            width:width,
+            }}/>) 
+          : (
+          <FlatList ListHeaderComponent={ 
             <View style={styles.familyInfoContainer}>
             <Text style={styles.infoFamilyName} >{'Familia ' + information.apellido}</Text>
               <View style={{marginBottom:10}}>
                 <Text style={styles.infoDescriptionFamily} >{information.estado}</Text>
               </View>
             <AppButton title={'Ver mapa'} onPress={()=>{navigation.navigate('Map',id)}}/>
-    
-          </View>
-    } data={categories.categories} renderItem={renderCategory} keyExtractor={(item) => item.name. spanish} />
-
-        )}
+          </View>} 
+            data={categories.categories} 
+            renderItem={renderCategory}
+            keyExtractor={(item) => item.name.spanish} />)}
 
       
     </SafeAreaView>
