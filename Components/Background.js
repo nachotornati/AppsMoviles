@@ -2,9 +2,6 @@ import { ImageBackground, StyleSheet, KeyboardAvoidingView } from 'react-native'
 import React, { useState } from 'react';
 
 export default function Background({ children }) {
-
-  const [state, setState] = useState(0)
-
   const images = [
     require("../assets/background1.jpg"),
     require("../assets/background2.jpg"),
