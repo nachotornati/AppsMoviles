@@ -4,6 +4,7 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import ImageView from "react-native-image-viewing";
 import CategoryButton from '../Components/CategoryButton';
 
+
 /*
   Image Picker es un modulo que nos permite seleccionar una foto o video desde la galeria
   del celular o la camara.
@@ -14,7 +15,6 @@ import CategoryButton from '../Components/CategoryButton';
   -selectionLimit: Por default es 1 y el 0 permite seleccionar cualquier cantidad de archivos.
   Una vez que tenemos la media, podemos obtener la URI de la media y ahi hacer lo que queramos.
 */
-
 
 export default class Category extends Component{
   constructor(props){
