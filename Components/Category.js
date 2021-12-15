@@ -149,6 +149,7 @@ const styles = StyleSheet.create({
       width: '100%',
       height: 155,
       borderRadius: 20,
+      flex:1,
       borderBottomLeftRadius: 0,
       borderBottomRightRadius: 0,
       shadowColor: 'blue',
