@@ -3,6 +3,19 @@ import{StyleSheet,Text,View, TouchableHighlight, Image, Alert} from "react-nativ
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import ImageView from "react-native-image-viewing";
 import CategoryButton from '../Components/CategoryButton';
+
+/*
+  Image Picker es un modulo que nos permite seleccionar una foto o video desde la galeria
+  del celular o la camara.
+  launchCamera es para poder tomar una foto o un video y launchImageLibrary es de donde
+  seleccionamos un video o una imagen pero desde la libreria
+  En ambas usamos options. Las que usamos fueron dos nada mas (pero hay mas)
+  -mediaType: 'photo', 'video', o 'mixed'. Le decimos que tipo de media queremos seleccionar
+  -selectionLimit: Por default es 1 y el 0 permite seleccionar cualquier cantidad de archivos.
+  Una vez que tenemos la media, podemos obtener la URI de la media y ahi hacer lo que queramos.
+*/
+
+
 export default class Category extends Component{
   constructor(props){
       super(props);
@@ -53,6 +66,18 @@ export default class Category extends Component{
   }
   async uploadPictureToServer(imagePath){
     try{
+      /*
+      Para mandar la foto, tenemos que usar FormData. Nos permite compilar un conjunto de pares clave/valor para enviar mediante XMLHttpRequest. 
+      Están destinados principalmente para el envío de los datos del formulario, pero se pueden utilizar de forma independiente con el fin de 
+      transmitir los datos tecleados. Los datos transmitidos estarán en el mismo formato que usa el método submit() del formulario para enviar 
+      los datos si el tipo de codificación del formulario se establece en "multipart/form-data".
+      Los HTTP Request tienen una parte que se llama Body. Este mismo son bytes que se transmiten en una transaccion HTTP inmediatamente despues
+      de los headers (si es que hay algunos, en HTTP 0.9 no hay headers).
+      Para subir el archivo, dentro del body creamos una clave que se llama 'upload' (el servidor va a buscar este campo para tomar la imagen).
+      Se tiene que incluir la uri a la imagen, el nombre con que lo mandamos, y el tipo de imagen.
+      
+      En el fetch pasamos el body    
+      */
       let url = 'https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/' + this.state.id  + '/' +  this.state.item.path
       let body = new FormData();
       body.append('upload', {uri: imagePath, name: 'photo.jpg', type: 'image/jpg'});
@@ -70,6 +95,13 @@ export default class Category extends Component{
       Alert.alert("Hubo un error al subir la imagen. Intente de nuevo.")
     }
   }
+
+  /*
+  Cuando queremos borrar una imagen, primero le preguntamos al usuario si quiere realmente hacerlo. Para eso,
+  usamos Alert pero un poco modificado.
+  Alert.alert(stringDelTituloDelAlert, descripcionDelAlert, listadoDeAccionesQuePodemosHacerDesdeElAlert)
+  */
+
   showConfirmDialog = () => {
       return Alert.alert(
         "Eliminar imagen",
@@ -78,6 +110,12 @@ export default class Category extends Component{
   );};
   async deletePicture(){
     try{
+      /*
+      Aca usamos el metodo 'DELETE' para borrar la imagen. ¿Hay diferencia con POST?
+      DELETE is idempotente mientras que POST no. Es decir, si yo uso DELETE contra
+      un endpoint multiples veces tendra el mismo efecto como si lo hubiera usado
+      una sola vez.  
+      */
       let url = 'https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/' + this.state.id  + '/' +  this.state.item.path
       var requestOptions = {
         method: 'DELETE',
