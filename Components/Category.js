@@ -26,8 +26,6 @@ export default class Category extends Component{
 
 
   onPressCategory(id,category, token){
-      console.log("id antes ", id);
-      console.log("path antes ", category);
       this.setIsVisible(true)
   }
 
@@ -63,7 +61,7 @@ export default class Category extends Component{
       let url = 'https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/' + this.state.id  + '/' +  this.state.item.path
       let body = new FormData();
       body.append('upload', {uri: imagePath, name: 'photo.jpg', type: 'image/jpg'});
-      const response = await fetch(url,{ method: 'POST',headers:{  "Content-Type": "multipart/form-data", "otherHeader": "foo", "Authentication": this.state.token} , body :body} )
+      const response = await fetch(url,{ method: 'POST',headers:{  "Content-Type": "multipart/form-data", "Authentication": this.state.token} , body :body} )
       const jsonResponse = await response.json()
 
       if(jsonResponse.error.flag){
@@ -90,7 +88,6 @@ export default class Category extends Component{
       let url = 'https://modulo-sanitario-imagenes-db.herokuapp.com/families/image/' + this.state.id  + '/' +  this.state.item.path
       var requestOptions = {
         method: 'DELETE',
-        redirect: 'follow',
         headers: {
           Authorization: this.state.token
         }
@@ -120,17 +117,17 @@ export default class Category extends Component{
       <View style={styles.categoriesItemContainer}>
       <ImageView images={[{
         uri: this.state.imgPath,
-        headers: { Authorization: this.state.token }}]} imageIndex={0} visible={this.state.visible} onRequestClose={() => this.setIsVisible(false)} />
-      <Image style={styles.categoriesPhoto} source={{
+        headers: { Authorization: this.state.token }}]} visible={this.state.visible} onRequestClose={() => this.setIsVisible(false)} />
+        <Image style={styles.categoriesPhoto} source={{
         uri: this.state.imgPath,
         headers: { Authorization: this.state.token }}} />
         <View style={styles.categoryNameContainer}>
-        <CategoryButton uri={'upload'} onPress={()=>{ this.openLibrary()}}/>
-        <CategoryButton uri={'camerao'} onPress={()=>{ this.openCamera()}}/>
-        <CategoryButton uri={'delete'} onPress={()=>{ this.showConfirmDialog()}}/>
+          <CategoryButton uri={'upload'} onPress={()=>{ this.openLibrary()}}/>
+          <CategoryButton uri={'camerao'} onPress={()=>{ this.openCamera()}}/>
+          <CategoryButton uri={'delete'} onPress={()=>{ this.showConfirmDialog()}}/>
         </View>
                 <Text style={styles.categoriesName}>{this.state.item.name.spanish}</Text>
-      </View>
+        </View>
       
     </TouchableHighlight>
 
@@ -139,19 +136,14 @@ export default class Category extends Component{
 
 }
 
-
-
 const styles = StyleSheet.create({
     categoriesItemContainer: {
       margin: 10,
       justifyContent: 'center',
       alignItems: 'center',
       height:300,
-      borderColor: '#cccccc',
-      borderWidth: 0.5,
       borderRadius: 20,
       backgroundColor:'white',
-    
     },
     categoriesPhoto: {
       width: '100%',
@@ -168,8 +160,6 @@ const styles = StyleSheet.create({
       shadowOpacity: 1.0,
     },
     categoriesName: {
-      flex: 1,
-
       fontSize: 20,
       fontWeight: 'bold',
       marginTop:7,
@@ -179,7 +169,6 @@ const styles = StyleSheet.create({
       
     },
     categoryNameContainer:{
-      flex:1,
       fontSize: 20,
       fontWeight: 'bold',
       textAlign: 'center',

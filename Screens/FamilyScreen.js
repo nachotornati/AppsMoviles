@@ -56,7 +56,7 @@ export default function FamilyScreen({ navigation, route }) {
 
     return (
       
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView>
       {loading ? (
           <ActivityIndicator
             size="large" color="#0000ff"
@@ -102,7 +102,6 @@ export default function FamilyScreen({ navigation, route }) {
     },
     container: {
       backgroundColor: 'white',
-      flex: 1
     },
     category: {
       fontSize: 14,

@@ -6,7 +6,6 @@ export const familyInfoCardStyle = StyleSheet.create({
       marginBottom: 5
     },
     title: {
-      flex: 1,
       fontSize: 17,
       fontWeight: 'bold',
       textAlign: 'center',
