@@ -219,7 +219,7 @@ export default function FamiliesScreen({ navigation }) {
     <View>
 
       <Modal animationType="slide" transparent={true} visible={modalVisible} onRequestClose={() => { setModalVisible(!modalVisible); }}>
-        <Animated.View style={{ flex: 1, justifyContent: "center", alignItems: "center" }} {...panResponder.panHandlers}>
+        <Animated.View style={{ justifyContent: "center", alignItems: "center" }} {...panResponder.panHandlers}>
           <View style={styles2.centeredView}>
             <KeyboardAvoidingView style={styles2.modalView}>
               <Icon size={30} name="window-minimize" style={{ marginBottom: 200, textAlign: "center" }} onPress={() => { setModalVisible(false) }} />
@@ -323,13 +323,11 @@ const styles2 = StyleSheet.create({
   },
   textInput: {
     height: 50,
-    width: 200,
+    width: 300,
     marginBottom: 25,
     backgroundColor: "white"
   },
   centeredView: {
-    flex: 1,
-    justifyContent: "center",
     alignItems: "center",
     marginTop: 22
   },
@@ -340,10 +338,6 @@ const styles2 = StyleSheet.create({
     padding: 35,
     alignItems: "center",
     shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
     width: width,
     height: height,
     shadowOpacity: 0.25,

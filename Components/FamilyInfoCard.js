@@ -16,7 +16,7 @@ export function FamilyInfoCard(props) {
 
 const styles = StyleSheet.create({
   categoriesItemContainer: {
-    marginHorizontal: 40,
+    marginHorizontal: 20,
     marginVertical: 10,
     justifyContent: 'center',
     alignItems: 'center',
@@ -25,16 +25,12 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderRadius: 20,
     backgroundColor: 'white',
-
   },
   categoriesName: {
-    flex: 1,
     fontSize: 20,
     fontWeight: 'bold',
     marginTop: 7,
     marginLeft: 5,
-    color: '#333333',
-    justifyContent: 'space-around'
-
+    color: '#333333'
   },
 });

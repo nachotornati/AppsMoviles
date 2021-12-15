@@ -64,7 +64,7 @@ export default function FamilyScreen({ navigation, route }) {
 
     return (
       
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView>
       {loading ? (
           <ActivityIndicator
             size="large" color="#0000ff"
@@ -93,57 +93,57 @@ export default function FamilyScreen({ navigation, route }) {
   
   }
 
-/*
+  /*
+    Voy a hacer una mencion a Flex.
 
-Voy a hacer una mencion a Flex.
+    flex define como los items van a llenar el espacio disponible. Cada espacio va a ser
+    dividido en función de la propiedad flex de cada propiedad. Por ejemplo:
 
-flex define como los items van a llenar el espacio disponible. Cada espacio va a ser
-dividido en función de la propiedad flex de cada propiedad. Por ejemplo:
+    <View style={[styles.container, { flexDirection: "row"}]}>
+      <View style={{ flex: 2, backgroundColor: "red" }} />
+      <View style={{ flex: 2, backgroundColor: "darkorange" }} />
+      <View style={{ flex: 4, backgroundColor: "green" }} />
+    </View>
 
-<View style={[styles.container, { flexDirection: "row"}]}>
-  <View style={{ flex: 2, backgroundColor: "red" }} />
-  <View style={{ flex: 2, backgroundColor: "darkorange" }} />
-  <View style={{ flex: 4, backgroundColor: "green" }} />
-</View>
-
-Aca, todos los view adentro del primero, se van a colocar en fila ocupando el mismo ancho red y darkorange
-mientras que el verde va a ocupar un poco mas.
-
-*/
-
-const styles = StyleSheet.create({
-  familyInfoContainer:{
-    margin: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    height: 230,
-    borderColor: '#cccccc',
-    borderWidth: 0.5,
-    borderRadius: 20,
-    backgroundColor:'white'
-  },
-  categoriesInfo: {
-    marginTop: 3,
-    marginBottom: 5
-  },
-  category: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    margin: 10,
-    color: '#2cd18a'
-  },
-  infoDescriptionFamily: {
-    color: 'black',
-    fontWeight: 'bold',
-    fontSize: 16,
-    marginTop:5,
-    textAlign:'center'
-  },
-  infoFamilyName: {
-    fontSize: 28,
-    margin: 10,
-    fontWeight: 'bold',
-    color: 'black',
-    textAlign: 'center'
-  }
-});
+    Aca, todos los view adentro del primero, se van a colocar en fila ocupando el mismo ancho red y darkorange
+    mientras que el verde va a ocupar un poco mas.
+  */
+  const styles = StyleSheet.create({
+    familyInfoContainer:{
+      margin: 10,
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: 230,
+      borderColor: '#cccccc',
+      borderWidth: 0.5,
+      borderRadius: 20,
+      backgroundColor:'white'
+    },
+    categoriesInfo: {
+      marginTop: 3,
+      marginBottom: 5
+    },
+    container: {
+      backgroundColor: 'white',
+    },
+    category: {
+      fontSize: 14,
+      fontWeight: 'bold',
+      margin: 10,
+      color: '#2cd18a'
+    },
+    infoDescriptionFamily: {
+      color: 'black',
+      fontWeight: 'bold',
+      fontSize: 16,
+      marginTop:5,
+      textAlign:'center'
+    },
+    infoFamilyName: {
+      fontSize: 28,
+      margin: 10,
+      fontWeight: 'bold',
+      color: 'black',
+      textAlign: 'center'
+    }
+  });
