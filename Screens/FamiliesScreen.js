@@ -206,6 +206,15 @@ export default function FamiliesScreen({ navigation }) {
     setCurrentPage(currentPage + 1)
   }
 
+  /*
+  <View> es un container que permite el layout con flexbox, style, etc.
+  Por ejemplo, si tenemos un view que tiene flex direction row, todo los 
+  que se encuentra abajo va a tener flex: y un numero.
+
+  Tambien tenemos <Modal>. Es una forma basica de presentar un contenido
+  por encima de otro.  Permite usar diferentes animaciones.
+  */
+
   return (
     <View>
 
@@ -246,11 +255,8 @@ export default function FamiliesScreen({ navigation }) {
 
       {loading ? (
         <ActivityIndicator
-          //visibility of Overlay Loading Spinner
           visible={loading}
-          //Text with the Spinner
           textContent={'Loading...'}
-          //Text style of the Spinner Text
           size="large" color="#0000ff"
           style={{
             height: height - 50,

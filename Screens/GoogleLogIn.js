@@ -80,6 +80,7 @@ export default function GoogleLogIn ({navigation}){
   config()
 
   /*
+
   ¿Por que usamos {{}} cuando pasamos estilos?
 
   Cuando creamos un objeto en JS, podemos hacerlo con {...atributo:_,otroAtributo:_... y asi}.
@@ -94,6 +95,7 @@ export default function GoogleLogIn ({navigation}){
 
   {} sirve para poder interpolar cualquier cosa dentro de JSX, entonces, todo lo que esté entre {} (dentro
   de una etiqueta lo que sea, viene de JS).
+  
   */
 
   return(
