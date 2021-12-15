@@ -77,12 +77,13 @@ export default function FamilyScreen({ navigation, route }) {
           : (
           <FlatList ListHeaderComponent={ 
             <View style={styles.familyInfoContainer}>
-            <Text style={styles.infoFamilyName} >{'Familia ' + information.apellido}</Text>
-              <View style={{marginBottom:10}}>
-                <Text style={styles.infoDescriptionFamily} >{information.estado}</Text>
-              </View>
-            <AppButton title={'Ver mapa'} onPress={()=>{navigation.navigate('Map',id)}}/>
-          </View>} 
+              <Text style={styles.infoFamilyName} >{'Familia ' + information.apellido}</Text>
+                <View style={{marginBottom:10}}>
+                  <Text style={styles.infoDescriptionFamily} >{information.estado}</Text>
+                </View>
+              <AppButton title={'Ver mapa'} onPress={()=>{navigation.navigate('Map',id)}}/>
+            </View>
+            } 
             data={categories.categories} 
             renderItem={renderCategory}
             keyExtractor={(item) => item.name.spanish} />)}

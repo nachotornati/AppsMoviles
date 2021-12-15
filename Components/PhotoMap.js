@@ -48,7 +48,7 @@ export default class PhotoMap extends Component {
                         latitudeDelta: 0.01,
                         longitudeDelta:0.01,
                     }}>
-                <Marker coordinate={{latitude:this.props.latitude+0.001, longitude:this.props.longitude}}></Marker>
+                <Marker coordinate={{latitude:this.props.latitude, longitude:this.props.longitude}}></Marker>
                             
                 </MapView>
 

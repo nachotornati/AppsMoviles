@@ -35,9 +35,7 @@ export default class Category extends Component{
   }
 
 
-  onPressCategory(id,category, token){
-      console.log("id antes ", id);
-      console.log("path antes ", category);
+  onPressCategory(){
       this.setIsVisible(true)
   }
 
@@ -143,9 +141,7 @@ export default class Category extends Component{
           
       <TouchableHighlight underlayColor="rgba(37, 150, 190,0.2)" onPress={() => this.onPressCategory(this.state.id,this.state.item.path, this.state.token)}>
       <View style={styles.categoriesItemContainer}>
-      <ImageView images={[{
-        uri: this.state.imgPath,
-        headers: { Authorization: this.state.token }}]} imageIndex={0} visible={this.state.visible} onRequestClose={() => this.setIsVisible(false)} />
+      <ImageView images={[{uri: this.state.imgPath, headers: { Authorization: this.state.token }}]} visible={this.state.visible} onRequestClose={() => this.setIsVisible(false)} />
       <Image style={styles.categoriesPhoto} source={{
         uri: this.state.imgPath,
         headers: { Authorization: this.state.token }}} />
@@ -165,7 +161,6 @@ export default class Category extends Component{
 }
 
 
-
 const styles = StyleSheet.create({
     categoriesItemContainer: {
       margin: 10,
@@ -176,7 +171,6 @@ const styles = StyleSheet.create({
       borderWidth: 0.5,
       borderRadius: 20,
       backgroundColor:'white',
-
     },
     categoriesPhoto: {
       width: '100%',
@@ -185,10 +179,6 @@ const styles = StyleSheet.create({
       borderBottomLeftRadius: 0,
       borderBottomRightRadius: 0,
       shadowColor: 'blue',
-      shadowOffset: {
-        width: 0,
-        height: 3
-      },
       shadowRadius: 5,
       shadowOpacity: 1.0,
     },
@@ -199,7 +189,7 @@ const styles = StyleSheet.create({
       marginTop:7,
       marginLeft:5,
       color: '#333333',
-      justifyContent:'space-around'
+      justifyContent:'space-around' //justifyContent viene de flex. el space-round hace que todos los elementos tengan el mismo espacio alrededor.
 
     },
     categoryNameContainer:{

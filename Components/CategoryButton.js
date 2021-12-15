@@ -6,7 +6,6 @@ export default function AppButton  ({uri, onPress}) {
   return(
     <TouchableOpacity onPress={onPress} style={styles.appButtonContainer}>
       <Icon size={20} color="#FFF" name={uri} />
-
     </TouchableOpacity>
   );
 }
